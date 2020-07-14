@@ -29,6 +29,6 @@ class CohortServiceTest {
     void list() {
         List<Cohort> cohorts = cohortService.list();
 
-        assertEquals(cohorts.size(), 3);
+        assertTrue(cohorts.size() > 30);
     }
 }
