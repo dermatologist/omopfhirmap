@@ -54,7 +54,6 @@ class ObservationServiceTest {
                     cohort.getSubjectId(), cohort.getCohortStartDate(), cohort.getCohortEndDate());
             System.out.println(observations.size());
         }
-        System.out.println(cohorts.size());
         assertTrue(cohorts.size() > 0);
     }
 }

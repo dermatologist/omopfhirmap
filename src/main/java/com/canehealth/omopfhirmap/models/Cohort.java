@@ -3,6 +3,9 @@ package com.canehealth.omopfhirmap.models;
 import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.IdClass;
 
@@ -19,7 +22,7 @@ public class Cohort {
   @Column(name = "subject_id", nullable = false)
   private Integer subjectId;
   @Column(name = "cohort_start_date", nullable = false)
-  private String cohortStartDate;
+  private Date cohortStartDate;
   @Column(name = "cohort_end_date", nullable = false)
-  private String cohortEndDate;
+  private Date cohortEndDate;
 }

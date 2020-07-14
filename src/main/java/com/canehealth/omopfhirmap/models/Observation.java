@@ -1,5 +1,7 @@
 package com.canehealth.omopfhirmap.models;
 
+import java.sql.Date;
+
 import javax.persistence.*;
 import lombok.Data;
 
@@ -17,7 +19,7 @@ public class Observation {
   @Column(name = "observation_concept_id", nullable = false)
   private Integer observationConceptId;
   @Column(name = "observation_date", nullable = false)
-  private String observationDate;
+  private Date observationDate;
   @Column(name = "observation_time", nullable = true)
   private String observationTime;
   @Column(name = "observation_type_concept_id", nullable = false)
