@@ -2,10 +2,8 @@ package com.canehealth.omopfhirmap.models;
 
 import lombok.Data;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Column;
-import javax.persistence.Transient;
 import javax.persistence.IdClass;
 
 @Data

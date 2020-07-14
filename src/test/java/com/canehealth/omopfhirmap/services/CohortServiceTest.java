@@ -28,7 +28,14 @@ class CohortServiceTest {
     @Test
     void list() {
         List<Cohort> cohorts = cohortService.list();
+        System.out.println(cohorts.size());
+        assertTrue(cohorts.size() > 30);
+    }
 
+    @Test
+    void listByCohorts() {
+        List<Cohort> cohorts = cohortService.listByCohort(2);
+        System.out.println(cohorts.size());
         assertTrue(cohorts.size() > 30);
     }
 }

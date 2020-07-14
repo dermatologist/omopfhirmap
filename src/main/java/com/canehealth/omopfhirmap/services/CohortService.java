@@ -17,5 +17,9 @@ public class CohortService {
     public List<Cohort> list(){
         return cohortRepository.findAll();
     }
+
+    public List<Cohort> listByCohort(Integer cohortDefinitionId){
+        return cohortRepository.findByCohortDefinitionId(cohortDefinitionId);
+    }
     
 }
