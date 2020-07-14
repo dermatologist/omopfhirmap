@@ -11,5 +11,6 @@ import java.util.List;
 public interface ObservationRepository extends JpaRepository<Observation, Integer>{
 
     List<Observation> findByPersonId(Integer personId);
+    List<Observation> findByPersonIdAndObservationDateBetween(Integer personId, String start, String end);
     
 }

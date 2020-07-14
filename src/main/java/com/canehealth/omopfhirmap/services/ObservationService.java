@@ -21,5 +21,9 @@ public class ObservationService {
     public List<Observation> listByPerson(Integer personId){
         return observationRepository.findByPersonId(personId);
     }
+
+    public List<Observation> listByPersonAndPeriod(Integer personId, String start, String end){
+        return observationRepository.findByPersonIdAndObservationDateBetween(personId, start, end);
+    }
     
 }

@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
+import com.canehealth.omopfhirmap.models.Cohort;
 import com.canehealth.omopfhirmap.models.Observation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ObservationServiceTest {
 
+    @Autowired
+    CohortService cohortService;
+    
     @Autowired
     ObservationService observationService;
 
@@ -37,5 +41,20 @@ class ObservationServiceTest {
         List<Observation> observations = observationService.listByPerson(2);
         System.out.println(observations.size());
         assertTrue(observations.size() > 0);
+    }
+
+    @Test
+    void listByCohorts() {
+        List<Cohort> cohorts = cohortService.listByCohort(2);
+        for (int i = 0; i < 10; i++) {
+            // System.out.println(cohorts.get(i));
+            Cohort cohort = cohorts.get(i);
+            List<Observation> observations = 
+                observationService.listByPersonAndPeriod(
+                    cohort.getSubjectId(), cohort.getCohortStartDate(), cohort.getCohortEndDate());
+            System.out.println(observations.size());
+        }
+        System.out.println(cohorts.size());
+        assertTrue(cohorts.size() > 0);
     }
 }
