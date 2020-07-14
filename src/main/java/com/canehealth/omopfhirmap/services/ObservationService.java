@@ -6,6 +6,7 @@ import com.canehealth.omopfhirmap.models.Observation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +21,10 @@ public class ObservationService {
 
     public List<Observation> listByPerson(Integer personId){
         return observationRepository.findByPersonId(personId);
+    }
+
+    public List<Observation> listByPersonAndPeriod(Integer personId, Date start, Date end){
+        return observationRepository.findByPersonIdAndObservationDateBetween(personId, start, end);
     }
     
 }
