@@ -1,6 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
-import com.canehealth.omopfhirmap.models.Observation;
+import com.canehealth.omopfhirmap.models.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,10 +12,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class ObservationServiceTest {
+class PersonServiceTest {
 
     @Autowired
-    ObservationService observationService;
+    PersonService personService;
 
     @BeforeEach
     void setUp() {
@@ -25,17 +25,17 @@ class ObservationServiceTest {
     void tearDown() {
     }
 
-    // @Test
-    // void list() {
-    //     List<Observation> observations = observationService.list();
-    //     System.out.println(observations.size());
-    //     assertTrue(observations.size() > 0);
-    // }
+    @Test
+    void list() {
+        List<Person> persons = personService.list();
+        System.out.println(persons.size());
+        assertTrue(persons.size() > 0);
+    }
 
     @Test
     void listByPerson() {
-        List<Observation> observations = observationService.listByPerson(2);
-        System.out.println(observations.size());
-        assertTrue(observations.size() > 0);
+        List<Person> persons = personService.listByPerson(2);
+        System.out.println(persons.size());
+        assertTrue(persons.size() > 0);
     }
 }
