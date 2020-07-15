@@ -9,7 +9,9 @@ import com.canehealth.omopfhirmap.services.CohortService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
+@Component
 @Data
 public class BaseMapper {
 
@@ -23,9 +25,9 @@ public class BaseMapper {
     private int cohortSize = 0;
 
     public void fetchCohort(){
-        if(cohortId>0){
-            this.cohorts = cohortService.listByCohort(this.cohortId);
-            this.cohortSize = cohorts.size();
+        if(this.cohortId>0){
+            this.cohorts = this.cohortService.listByCohort(this.cohortId);
+            this.cohortSize = this.cohorts.size();
         }
     }
 
