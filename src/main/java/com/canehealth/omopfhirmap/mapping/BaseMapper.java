@@ -28,4 +28,14 @@ public class BaseMapper {
             this.cohortSize = cohorts.size();
         }
     }
+
+    public void fetchOmopResources(){
+
+    }
+
+    public void createBundle(){
+        
+    }
+
+
 }
