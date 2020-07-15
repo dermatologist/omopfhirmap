@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
-public class DrugExposureService {
+public class DrugExposureService extends BaseService<DrugExposureRepository, DrugExposure>{
 
     @Autowired
     private DrugExposureRepository drugExposureRepository;

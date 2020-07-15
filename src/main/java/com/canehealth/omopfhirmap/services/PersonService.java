@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.sql.Date;
 @Service
-public class PersonService {
+public class PersonService extends BaseService<PersonRepository, Person>{
 
     @Autowired
     private PersonRepository personRepository;
@@ -22,4 +22,7 @@ public class PersonService {
         return personRepository.findByPersonId(personId);
     }
     
+    public List<Person> listByPersonAndPeriod(Integer personId, Date start, Date end){
+        return personRepository.findAll();
+    }
 }
