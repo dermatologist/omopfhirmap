@@ -18,8 +18,6 @@ public class BaseFetcher<S extends BaseService<?, M>, M> {
 
     private final Class<S> OmopService;
 
-    @Autowired
-    OmopService omopService;
 
     // @IMPORTANT: This constructor is required for generics
     public BaseFetcher(Class<S> OmopService) {

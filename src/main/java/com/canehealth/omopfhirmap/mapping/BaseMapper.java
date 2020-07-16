@@ -41,8 +41,8 @@ public class BaseMapper {
     public void fetchOmopResources() {
         BaseFetcher<PersonService, Person> personFetcher = new BaseFetcher<PersonService, Person>(PersonService.class);
         personFetcher.setCohorts(this.cohorts);
-        //personFetcher.fetch();
-        //this.persons = personFetcher.getOmopResources();
+        personFetcher.fetch();
+        this.persons = personFetcher.getOmopResources();
     }
 
     public void createBundle(){
