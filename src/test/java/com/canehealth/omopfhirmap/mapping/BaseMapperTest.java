@@ -34,6 +34,26 @@ class BaseMapperTest {
         System.out.println("Person Count: ");
         System.out.println(baseMapper.getPersons().size());
         assertTrue(baseMapper.getPersons().size() > 0);
+
+        System.out.println("Observations Count: ");
+        System.out.println(baseMapper.getObservations().size());
+        assertTrue(baseMapper.getObservations().size() > 0);
+
+        System.out.println("Measurements Count: ");
+        System.out.println(baseMapper.getMeasurements().size());
+        assertTrue(baseMapper.getMeasurements().size() > 0);
+
+        System.out.println("DrugExposure Count: ");
+        System.out.println(baseMapper.getDrugExposures().size());
+        assertTrue(baseMapper.getDrugExposures().size() > 0);
+
+        System.out.println("VisitOccurrence Count: ");
+        System.out.println(baseMapper.getVisitOccurrences().size());
+        assertTrue(baseMapper.getVisitOccurrences().size() > 0);
+
+        System.out.println("ProcedureOccurrence Count: ");
+        System.out.println(baseMapper.getProcedureOccurrences().size());
+        assertTrue(baseMapper.getProcedureOccurrences().size() > 0);
     }
 
     @Test
