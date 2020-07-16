@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.canehealth.omopfhirmap.fetchers.BaseFetcher;
 import com.canehealth.omopfhirmap.fetchers.PersonFetcher;
 import com.canehealth.omopfhirmap.fhir.R4Bundle;
 import com.canehealth.omopfhirmap.models.Cohort;
 import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.services.CohortService;
-import com.canehealth.omopfhirmap.services.PersonService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
