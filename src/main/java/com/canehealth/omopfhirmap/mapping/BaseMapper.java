@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.mapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.canehealth.omopfhirmap.fhir.R4Bundle;
@@ -19,27 +20,28 @@ public class BaseMapper {
 
     @Autowired
     CohortService cohortService;
-    
+
     // @Autowired
     // PersonService personService;
 
-    private List<Cohort> cohorts;
+    private List<Cohort> cohorts = new ArrayList<>();
     private Cohort cohort;
     private R4Bundle r4Bundle;
     private int cohortId = 0;
     private int cohortSize = 0;
-    private List<Person> persons;
+    private List<Person> persons = new ArrayList<>();
 
-    public void fetchCohort(){
-        if(this.cohortId>0){
+    public void fetchCohort() {
+        if (this.cohortId > 0) {
             this.cohorts = this.cohortService.listByCohort(this.cohortId);
             this.cohortSize = this.cohorts.size();
         }
     }
 
-    public void fetchOmopResources(){
+    public void fetchOmopResources() {
         BaseFetcher<PersonService, Person> personFetcher = new BaseFetcher<PersonService, Person>(PersonService.class);
-        //personFetcher.run();
+        personFetcher.setCohorts(this.cohorts);
+        //personFetcher.fetch();
         //this.persons = personFetcher.getOmopResources();
     }
 
