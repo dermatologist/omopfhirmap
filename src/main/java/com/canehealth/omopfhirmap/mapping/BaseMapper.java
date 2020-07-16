@@ -32,6 +32,12 @@ public class BaseMapper {
     @Autowired
     DrugExposureFetcher drugExposureFetcher;
 
+    @Autowired
+    VisitOccurrenceFetcher visitOccurrenceFetcher;
+
+    @Autowired
+    ProcedureOccurrenceFetcher procedureOccurrenceFetcher;
+
     private List<Cohort> cohorts = new ArrayList<>();
     private Cohort cohort;
     private R4Bundle r4Bundle;
@@ -41,6 +47,8 @@ public class BaseMapper {
     private List<Observation> observations = new ArrayList<>();
     private List<Measurement> measurements = new ArrayList<>();
     private List<DrugExposure> drugExposures = new ArrayList<>();
+    private List<VisitOccurrence> visitOccurrences = new ArrayList<>();
+    private List<ProcedureOccurrence> procedureOccurrences = new ArrayList<>();
 
     public void fetchCohort() {
         if (this.cohortId > 0) {
@@ -68,6 +76,15 @@ public class BaseMapper {
         drugExposureFetcher.setCohorts(this.cohorts);
         drugExposureFetcher.start();
 
+        visitOccurrenceFetcher.setCohorts(this.cohorts);
+        visitOccurrenceFetcher.start();
+
+        procedureOccurrenceFetcher.setCohorts(this.cohorts);
+        procedureOccurrenceFetcher.start();
+
+
+        visitOccurrenceFetcher.join();
+        procedureOccurrenceFetcher.join();
         drugExposureFetcher.join();
         measurementFetcher.join();
         observationFetcher.join();
@@ -77,6 +94,8 @@ public class BaseMapper {
         this.observations = observationFetcher.getOmopResources();
         this.measurements = measurementFetcher.getOmopResources();
         this.drugExposures = drugExposureFetcher.getOmopResources();
+        this.visitOccurrences = visitOccurrenceFetcher.getOmopResources();
+        this.procedureOccurrences = procedureOccurrenceFetcher.getOmopResources();
     }
 
     public void createBundle(){

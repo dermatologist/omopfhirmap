@@ -46,6 +46,14 @@ class BaseMapperTest {
         System.out.println("DrugExposure Count: ");
         System.out.println(baseMapper.getDrugExposures().size());
         assertTrue(baseMapper.getDrugExposures().size() > 0);
+
+        System.out.println("VisitOccurrence Count: ");
+        System.out.println(baseMapper.getVisitOccurrences().size());
+        assertTrue(baseMapper.getVisitOccurrences().size() > 0);
+
+        System.out.println("ProcedureOccurrence Count: ");
+        System.out.println(baseMapper.getProcedureOccurrences().size());
+        assertTrue(baseMapper.getProcedureOccurrences().size() > 0);
     }
 
     @Test
