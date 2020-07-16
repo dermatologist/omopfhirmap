@@ -24,9 +24,6 @@ public class BaseMapper {
     @Autowired
     CohortService cohortService;
 
-    // @Autowired
-    // PersonService personService;
-
     @Autowired
     PersonFetcher personFetcher;
 
@@ -50,10 +47,10 @@ public class BaseMapper {
                 .collect(Collectors.toList());
     }
 
-    public void fetchOmopResources() {
-//        BaseFetcher<PersonService, Person> personFetcher = new BaseFetcher<PersonService, Person>(PersonService.class);
+    public void fetchOmopResources() throws InterruptedException {
         personFetcher.setCohorts(this.cohorts);
-        personFetcher.run();
+        personFetcher.start();
+        personFetcher.join();
         this.persons = personFetcher.getOmopResources();
     }
 

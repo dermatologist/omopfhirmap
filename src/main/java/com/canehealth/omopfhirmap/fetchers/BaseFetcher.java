@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class BaseFetcher<M> {
+public class BaseFetcher<M> extends Thread{
 
     List<Cohort> cohorts = new ArrayList<>();
     List<M> omopResources = new ArrayList<>();

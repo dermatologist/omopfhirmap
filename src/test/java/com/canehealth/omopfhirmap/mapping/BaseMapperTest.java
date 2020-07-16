@@ -28,7 +28,7 @@ class BaseMapperTest {
 
     
     @Test
-    void fetchOmopResources() {
+    void fetchOmopResources() throws InterruptedException {
         baseMapper.trimList(5);
         baseMapper.fetchOmopResources();
         System.out.println("Person Count: ");
