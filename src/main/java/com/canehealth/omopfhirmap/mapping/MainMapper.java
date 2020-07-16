@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-public class BaseMapper {
+public class MainMapper {
 
     @Autowired
     CohortService cohortService;
