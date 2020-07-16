@@ -38,6 +38,10 @@ class BaseMapperTest {
         System.out.println("Observations Count: ");
         System.out.println(baseMapper.getObservations().size());
         assertTrue(baseMapper.getObservations().size() > 0);
+
+        System.out.println("Measurements Count: ");
+        System.out.println(baseMapper.getMeasurements().size());
+        assertTrue(baseMapper.getMeasurements().size() > 0);
     }
 
     @Test
