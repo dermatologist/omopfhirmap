@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.canehealth.omopfhirmap.fetchers.ObservationFetcher;
 import com.canehealth.omopfhirmap.fetchers.PersonFetcher;
 import com.canehealth.omopfhirmap.fhir.R4Bundle;
 import com.canehealth.omopfhirmap.models.Cohort;
+import com.canehealth.omopfhirmap.models.Observation;
 import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.services.CohortService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,16 @@ public class BaseMapper {
     @Autowired
     PersonFetcher personFetcher;
 
+    @Autowired
+    ObservationFetcher observationFetcher;
+
     private List<Cohort> cohorts = new ArrayList<>();
     private Cohort cohort;
     private R4Bundle r4Bundle;
     private int cohortId = 0;
     private int cohortSize = 0;
     private List<Person> persons = new ArrayList<>();
+    private List<Observation> observations = new ArrayList<>();
 
     public void fetchCohort() {
         if (this.cohortId > 0) {
@@ -47,8 +53,12 @@ public class BaseMapper {
     public void fetchOmopResources() throws InterruptedException {
         personFetcher.setCohorts(this.cohorts);
         personFetcher.start();
+        observationFetcher.setCohorts(this.cohorts);
+        observationFetcher.start();
+        observationFetcher.join();
         personFetcher.join();
         this.persons = personFetcher.getOmopResources();
+        this.observations = observationFetcher.getOmopResources();
     }
 
     public void createBundle(){
