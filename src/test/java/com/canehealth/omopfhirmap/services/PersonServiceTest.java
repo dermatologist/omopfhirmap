@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Calendar;
+import java.sql.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +36,8 @@ class PersonServiceTest {
 
     @Test
     void listByPerson() {
-        List<Person> persons = personService.listByPerson(2);
+        Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
         System.out.println(persons.size());
         assertTrue(persons.size() > 0);
     }

@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
-public class MeasurementService {
+public class MeasurementService implements BaseService<MeasurementRepository, Measurement> {
 
     @Autowired
     private MeasurementRepository measurementRepository;
