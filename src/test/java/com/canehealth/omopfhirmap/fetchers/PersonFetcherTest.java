@@ -12,6 +12,6 @@ class PersonFetcherTest {
     }
 
     @Test
-    void fetch() {
+    void run() {
     }
 }

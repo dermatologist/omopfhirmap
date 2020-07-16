@@ -13,7 +13,7 @@ public class BaseFetcher<M> {
     List<M> omopResources = new ArrayList<>();
     List<M> omopStep = new ArrayList<>();
 
-    public void fetch() {
+    public void run() {
 
     }
     

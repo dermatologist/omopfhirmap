@@ -13,7 +13,7 @@ public class PersonFetcher extends BaseFetcher<Person>{
     PersonService personService;
 
     @Override
-    public void fetch() {
+    public void run() {
         for(Cohort cohort: this.cohorts){
             this.omopStep = this.personService.listByPersonAndPeriod(
                     cohort.getSubjectId(), cohort.getCohortStartDate(), cohort.getCohortEndDate());
