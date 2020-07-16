@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.canehealth.omopfhirmap.fetchers.MeasurementFetcher;
-import com.canehealth.omopfhirmap.fetchers.ObservationFetcher;
-import com.canehealth.omopfhirmap.fetchers.PersonFetcher;
+import com.canehealth.omopfhirmap.fetchers.*;
 import com.canehealth.omopfhirmap.fhir.R4Bundle;
-import com.canehealth.omopfhirmap.models.Cohort;
-import com.canehealth.omopfhirmap.models.Measurement;
-import com.canehealth.omopfhirmap.models.Observation;
-import com.canehealth.omopfhirmap.models.Person;
+import com.canehealth.omopfhirmap.models.*;
 import com.canehealth.omopfhirmap.services.CohortService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,6 +29,9 @@ public class BaseMapper {
     @Autowired
     MeasurementFetcher measurementFetcher;
 
+    @Autowired
+    DrugExposureFetcher drugExposureFetcher;
+
     private List<Cohort> cohorts = new ArrayList<>();
     private Cohort cohort;
     private R4Bundle r4Bundle;
@@ -42,6 +40,7 @@ public class BaseMapper {
     private List<Person> persons = new ArrayList<>();
     private List<Observation> observations = new ArrayList<>();
     private List<Measurement> measurements = new ArrayList<>();
+    private List<DrugExposure> drugExposures = new ArrayList<>();
 
     public void fetchCohort() {
         if (this.cohortId > 0) {
@@ -66,6 +65,10 @@ public class BaseMapper {
         measurementFetcher.setCohorts(this.cohorts);
         measurementFetcher.start();
 
+        drugExposureFetcher.setCohorts(this.cohorts);
+        drugExposureFetcher.start();
+
+        drugExposureFetcher.join();
         measurementFetcher.join();
         observationFetcher.join();
         personFetcher.join();
@@ -73,6 +76,7 @@ public class BaseMapper {
         this.persons = personFetcher.getOmopResources();
         this.observations = observationFetcher.getOmopResources();
         this.measurements = measurementFetcher.getOmopResources();
+        this.drugExposures = drugExposureFetcher.getOmopResources();
     }
 
     public void createBundle(){
