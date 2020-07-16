@@ -29,6 +29,7 @@ class BaseMapperTest {
     
     @Test
     void fetchOmopResources() {
+        baseMapper.trimList(5);
         baseMapper.fetchOmopResources();
         System.out.println("Person Count: ");
         System.out.println(baseMapper.getPersons().size());

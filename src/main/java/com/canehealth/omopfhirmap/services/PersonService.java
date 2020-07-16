@@ -23,6 +23,6 @@ public class PersonService extends BaseService<PersonRepository, Person>{
     }
     
     public List<Person> listByPersonAndPeriod(Integer personId, Date start, Date end){
-        return personRepository.findAll();
+        return personRepository.findByPersonId(personId);
     }
 }
