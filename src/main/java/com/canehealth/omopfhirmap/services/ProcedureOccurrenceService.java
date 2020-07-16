@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
-public class ProcedureOccurrenceService extends BaseService<ProcedureOccurrenceRepository, ProcedureOccurrence>{
+public class ProcedureOccurrenceService implements BaseService<ProcedureOccurrenceRepository, ProcedureOccurrence> {
 
     @Autowired
     private ProcedureOccurrenceRepository procedureOccurrenceRepository;

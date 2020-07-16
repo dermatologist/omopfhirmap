@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.sql.Date;
 @Service
-public class PersonService extends BaseService<PersonRepository, Person>{
+public class PersonService implements BaseService<PersonRepository, Person> {
 
     @Autowired
     private PersonRepository personRepository;
