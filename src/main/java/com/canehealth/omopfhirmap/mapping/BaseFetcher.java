@@ -9,7 +9,7 @@ import com.canehealth.omopfhirmap.models.Cohort;
 import lombok.Data;
 
 @Data
-public abstract class BaseFetcher<S extends BaseService<?, M>, M> {
+public class BaseFetcher<S extends BaseService<?, M>, M> {
 
     private List<Cohort> cohorts;
     private List<M> omopResources;
@@ -21,7 +21,7 @@ public abstract class BaseFetcher<S extends BaseService<?, M>, M> {
         this.OmopService = OmopService;
     }
 
-    public void fetch() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+    public void run() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException, NoSuchMethodException, SecurityException {
         for(Cohort cohort: cohorts){
             // @IMPORTANT: See how the instance is created
