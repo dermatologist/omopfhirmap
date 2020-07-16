@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Observation {
+public class Observation extends BaseModel{
 
  
   @Id

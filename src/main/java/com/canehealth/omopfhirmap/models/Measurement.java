@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Measurement {
+public class Measurement extends BaseModel{
 
   @Id
   @GeneratedValue

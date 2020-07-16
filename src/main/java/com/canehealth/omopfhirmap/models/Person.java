@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Person {
+public class Person extends BaseModel{
 
   @Id
   @GeneratedValue

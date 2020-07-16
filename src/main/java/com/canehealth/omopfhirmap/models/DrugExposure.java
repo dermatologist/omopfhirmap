@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class DrugExposure {
+public class DrugExposure extends BaseModel{
 
   @Id
   @GeneratedValue

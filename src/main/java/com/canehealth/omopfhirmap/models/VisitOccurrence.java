@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class VisitOccurrence {
+public class VisitOccurrence extends BaseModel{
 
   @Id
   @GeneratedValue

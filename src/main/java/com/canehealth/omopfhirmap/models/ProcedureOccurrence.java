@@ -6,7 +6,7 @@ import java.sql.Date;
 
 @Data
 @Entity
-public class ProcedureOccurrence {
+public class ProcedureOccurrence extends BaseModel{
 
   @Id
   @GeneratedValue
