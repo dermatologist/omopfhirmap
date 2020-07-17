@@ -45,4 +45,9 @@ public class Person extends BaseModel{
   private String ethnicitySourceValue;
   @Column(name = "ethnicity_source_concept_id", nullable = true)
   private Integer ethnicitySourceConceptId;
+
+  @Override
+  public Integer getId(){
+    return personId;
+  }
 }

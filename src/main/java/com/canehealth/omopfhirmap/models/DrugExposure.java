@@ -53,4 +53,9 @@ public class DrugExposure extends BaseModel{
   private String routeSourceValue;
   @Column(name = "dose_unit_source_value", nullable = true)
   private String doseUnitSourceValue;
+
+  @Override
+  public Integer getId(){
+    return drugExposureId;
+  }
 }

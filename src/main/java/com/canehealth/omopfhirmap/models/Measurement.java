@@ -47,4 +47,9 @@ public class Measurement extends BaseModel{
   private String unitSourceValue;
   @Column(name = "value_source_value", nullable = true)
   private String valueSourceValue;
+
+  @Override
+  public Integer getId(){
+    return measurementId;
+  }
 }

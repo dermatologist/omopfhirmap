@@ -46,4 +46,9 @@ public class Observation extends BaseModel{
   private String unitSourceValue;
   @Column(name = "qualifier_source_value", nullable = true)
   private String qualifierSourceValue;
+
+  @Override
+  public Integer getId(){
+    return observationId;
+  }
 }
