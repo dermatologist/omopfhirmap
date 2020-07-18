@@ -51,8 +51,9 @@ class PatientMapperTest {
         for(Identifier identifier: identifiers) {
             System.out.println(identifier.getSystem());
             if(identifier.getSystem().equals(myIdentifierSystem))
-                assertTrue(identifier.getValue().equals(person.getPersonId().toString()));
+                assertEquals(identifier.getValue(), person.getPersonId().toString());
         }
+        System.out.print(patientMapper.encodeResourceToJsonString());
     }
 
     @Test

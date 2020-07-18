@@ -3,6 +3,8 @@ package com.canehealth.omopfhirmap.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.parser.IParser;
 import com.canehealth.omopfhirmap.models.BaseModel;
 
 import org.hl7.fhir.r4.model.Identifier;
@@ -12,7 +14,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 
 @Data
-public abstract class BaseMapper<M extends BaseModel, F extends Resource>{
+public class BaseMapper<M extends BaseModel, F extends Resource>{
 	// * OMOP TABLES ---------:-FHIR Resources          
     // * condition_occurrence : Condition
 	// * device_exposure : DeviceUseStatement
@@ -27,5 +29,18 @@ public abstract class BaseMapper<M extends BaseModel, F extends Resource>{
 	private List<F> fhirResources = new ArrayList<>();
 	public M omopResource;
 	public F fhirResource;
+	// Create a FHIR context
+	FhirContext ctx = FhirContext.forR4();
+
+	public String encodeResourceToJsonString(){
+		// Instantiate a new JSON parser
+		IParser parser = ctx.newJsonParser();
+		return parser.encodeResourceToString(this.fhirResource);
+	}
+
+	public String encodeResourceToXmlString(){
+		return ctx.newXmlParser().encodeResourceToString(this.fhirResource);
+	}
+
 
 }
