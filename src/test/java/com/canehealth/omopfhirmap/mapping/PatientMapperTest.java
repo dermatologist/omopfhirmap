@@ -62,7 +62,7 @@ class PatientMapperTest {
     }
 
     @Test
-    void mapOmopToFhirIdentifier() {
+    void mapOmopToFhirTest() {
         Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
         Person person = persons.get(0);
@@ -76,6 +76,11 @@ class PatientMapperTest {
                 assertEquals(identifier.getValue(), person.getPersonId().toString());
         }
         System.out.print(patientMapper.encodeResourceToJsonString());
+    }
+
+    @Test
+    void mapFhirToOmopTest() {
+       patientMapper.mapFhirToOmop();
     }
 
     @Test

@@ -1,14 +1,17 @@
 package com.canehealth.omopfhirmap.mapping;
 
 import com.canehealth.omopfhirmap.models.Person;
+import com.canehealth.omopfhirmap.services.PersonService;
 import com.canehealth.omopfhirmap.utils.AddOmopKeyAsIdentifier;
 import com.canehealth.omopfhirmap.utils.OmopConstants;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hl7.fhir.r4.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,6 +22,9 @@ public class PatientMapper extends BaseMapper<Person, Patient>{
 
     @Value("${omopfhir.system.name}")
     private String myIdentifierSystem;
+
+    @Autowired
+    PersonService personService;
 
     public void mapOmopToFhir(){
         AddOmopKeyAsIdentifier<Person> addOmopKeyAsIdentifier = new AddOmopKeyAsIdentifier<>();
@@ -73,5 +79,20 @@ public class PatientMapper extends BaseMapper<Person, Patient>{
             reference.setResource(organization);
             this.fhirResource.setManagingOrganization(reference);
         }
+    }
+
+    public void mapFhirToOmop(){
+            List<Identifier> identifiers = this.fhirResource.getIdentifier();
+            for(Identifier identifier: identifiers){
+                if(identifier.getSystem().equals(myIdentifierSystem)){
+                    String myId = identifier.getValue();
+                    Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+                    List<Person> persons = personService.listByPersonAndPeriod(Integer.parseInt(myId), today , today);
+                    if(persons.isEmpty())
+                        System.out.println("Does not exist");
+                    else
+                        System.out.println("Exists");
+                }
+            }
     }
 }
