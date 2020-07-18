@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class DrugExposure {
+public class DrugExposure extends BaseModel{
 
   @Id
   @GeneratedValue
@@ -53,4 +53,9 @@ public class DrugExposure {
   private String routeSourceValue;
   @Column(name = "dose_unit_source_value", nullable = true)
   private String doseUnitSourceValue;
+
+  @Override
+  public Integer getId(){
+    return drugExposureId;
+  }
 }

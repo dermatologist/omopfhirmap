@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Measurement {
+public class Measurement extends BaseModel{
 
   @Id
   @GeneratedValue
@@ -47,4 +47,9 @@ public class Measurement {
   private String unitSourceValue;
   @Column(name = "value_source_value", nullable = true)
   private String valueSourceValue;
+
+  @Override
+  public Integer getId(){
+    return measurementId;
+  }
 }

@@ -6,7 +6,7 @@ import java.sql.Date;
 
 @Data
 @Entity
-public class ProcedureOccurrence {
+public class ProcedureOccurrence extends BaseModel{
 
   @Id
   @GeneratedValue
@@ -34,4 +34,9 @@ public class ProcedureOccurrence {
   private Integer procedureSourceConceptId;
   @Column(name = "qualifier_source_value", nullable = true)
   private String qualifierSourceValue;
+
+  @Override
+  public Integer getId(){
+    return procedureOccurrenceId;
+  }
 }

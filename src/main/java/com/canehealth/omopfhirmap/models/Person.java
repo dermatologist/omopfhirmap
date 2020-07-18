@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Person {
+public class Person extends BaseModel{
 
   @Id
   @GeneratedValue
@@ -45,4 +45,9 @@ public class Person {
   private String ethnicitySourceValue;
   @Column(name = "ethnicity_source_concept_id", nullable = true)
   private Integer ethnicitySourceConceptId;
+
+  @Override
+  public Integer getId(){
+    return personId;
+  }
 }

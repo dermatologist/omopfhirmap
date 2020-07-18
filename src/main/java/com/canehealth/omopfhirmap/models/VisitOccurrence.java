@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class VisitOccurrence {
+public class VisitOccurrence extends BaseModel{
 
   @Id
   @GeneratedValue
@@ -35,4 +35,9 @@ public class VisitOccurrence {
   private String visitSourceValue;
   @Column(name = "visit_source_concept_id", nullable = true)
   private Integer visitSourceConceptId;
+
+  @Override
+  public Integer getId(){
+    return visitOccurrenceId;
+  }
 }

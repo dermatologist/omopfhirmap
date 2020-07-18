@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Observation {
+public class Observation extends BaseModel{
 
  
   @Id
@@ -46,4 +46,9 @@ public class Observation {
   private String unitSourceValue;
   @Column(name = "qualifier_source_value", nullable = true)
   private String qualifierSourceValue;
+
+  @Override
+  public Integer getId(){
+    return observationId;
+  }
 }

@@ -1,11 +1,12 @@
 package com.canehealth.omopfhirmap.services;
+import com.canehealth.omopfhirmap.models.BaseModel;
 
 import java.util.List;
 import java.sql.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BaseService <J extends JpaRepository<?, Integer>, C>{
+public interface BaseService <J extends JpaRepository<?, Integer>, C extends BaseModel>{
     
     
     List<C> list();
