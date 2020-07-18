@@ -15,8 +15,7 @@ WIP
 
 ## Design
 
-* Uses spring-boot and JPA for innovative wiring of services and abstraction of database.
-* Uses hapi-fhir as it is an obvious choice for any java based FHIR applications.
+* Uses spring-boot and JPA for wiring of services and abstraction of database.
 
 ## Other projects
 
