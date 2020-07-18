@@ -10,6 +10,8 @@ import org.hl7.fhir.r4.model.Enumerations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Component
@@ -29,5 +31,23 @@ public class PatientMapper extends BaseMapper<Person, R4Patient>{
             this.fhirResource.setGender(Enumerations.AdministrativeGender.MALE);
         else
             this.fhirResource.setGender(Enumerations.AdministrativeGender.UNKNOWN);
+
+        // birthDate	Σ	0..1	date	The date of birth for the individual
+        Calendar calendar = Calendar.getInstance();
+        int yob, mob, dob;
+        if (this.omopResource.getYearOfBirth() != null)
+            yob = this.omopResource.getYearOfBirth();
+        else
+            yob = 1;
+        if (this.omopResource.getMonthOfBirth() != null)
+            mob = this.omopResource.getMonthOfBirth();
+        else
+            mob = 1;
+        if (this.omopResource.getDayOfBirth() != null)
+            dob = this.omopResource.getDayOfBirth();
+        else
+            dob = 1;
+        calendar.set(yob, mob - 1, dob);
+        this.fhirResource.setBirthDate(calendar.getTime());
     }
 }
