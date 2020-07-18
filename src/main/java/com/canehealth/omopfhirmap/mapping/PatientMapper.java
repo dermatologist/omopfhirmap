@@ -88,8 +88,15 @@ public class PatientMapper extends BaseMapper<Person, Patient>{
                     String myId = identifier.getValue();
                     Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
                     List<Person> persons = personService.listByPersonAndPeriod(Integer.parseInt(myId), today , today);
-                    if(persons.isEmpty())
+                    if(persons.isEmpty()) {
                         System.out.println("Does not exist");
+                        // person_source_value	varchar(50)
+                        // An (encrypted) key derived from the person identifier in the source data.
+                        // This is necessary when a use case requires a link back to the person data
+                        // at the source dataset.
+                        // TODO encrypt ID
+                        this.omopResource.setPersonSourceValue(this.fhirResource.getId());
+                    }
                     else {
                         // Exists
                         this.omopResource = null;

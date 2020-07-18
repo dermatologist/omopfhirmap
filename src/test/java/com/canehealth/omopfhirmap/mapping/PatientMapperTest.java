@@ -80,7 +80,13 @@ class PatientMapperTest {
 
     @Test
     void mapFhirToOmopTest() {
+        List<Identifier> identifiers = patientMapper.fhirResource.getIdentifier();
+        for(Identifier identifier: identifiers) {
+            if (identifier.getSystem().equals(myIdentifierSystem))
+                identifier.setValue("73452435"); // Unknown value
+        }
        patientMapper.mapFhirToOmop();
+       System.out.println(patientMapper.omopResource.getPersonSourceValue());
     }
 
     @Test
