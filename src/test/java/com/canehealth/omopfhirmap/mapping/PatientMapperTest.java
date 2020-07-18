@@ -86,7 +86,7 @@ class PatientMapperTest {
                 identifier.setValue("73452435"); // Unknown value
         }
        patientMapper.mapFhirToOmop();
-       System.out.println(patientMapper.omopResource.getPersonSourceValue());
+       System.out.println(patientMapper.omopResource.toString());
     }
 
     @Test

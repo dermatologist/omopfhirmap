@@ -96,6 +96,17 @@ public class PatientMapper extends BaseMapper<Person, Patient>{
                         // at the source dataset.
                         // TODO encrypt ID
                         this.omopResource.setPersonSourceValue(this.fhirResource.getId());
+                        //year_of_birth month_of_birth day_of_birth
+                        Calendar cal = Calendar.getInstance();
+                        if(this.fhirResource.getBirthDate() != null) {
+                            cal.setTime(this.fhirResource.getBirthDate());
+                            int year = cal.get(Calendar.YEAR);
+                            int month = cal.get(Calendar.MONTH) + 1; //0 -> 1
+                            int day = cal.get(Calendar.DAY_OF_MONTH);
+                            this.omopResource.setYearOfBirth(year);
+                            this.omopResource.setMonthOfBirth(month);
+                            this.omopResource.setDayOfBirth(day);
+                        }
                     }
                     else {
                         // Exists
