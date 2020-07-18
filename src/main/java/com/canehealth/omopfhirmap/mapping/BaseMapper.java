@@ -43,9 +43,7 @@ public class BaseMapper<M extends BaseModel, F extends Resource>{
 	public F parseResourceFromJsonString(String fhirResourceAsString){
 		// Parse it
 		IParser parser = ctx.newJsonParser();
-		this.fhirResource = (F) parser.parseResource(this.fhirResource.getClass(), fhirResourceAsString);
-		System.out.print(this.fhirResource);
-		return this.fhirResource;
+		return (F) parser.parseResource(fhirResourceAsString);
 	}
 
 

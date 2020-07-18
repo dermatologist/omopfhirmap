@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.mapping;
 
+import org.hl7.fhir.r4.model.Patient;
 import com.canehealth.omopfhirmap.fhir.R4Patient;
 import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.services.PersonService;
@@ -34,6 +35,8 @@ class PatientMapperTest {
     @Value("${omopfhir.system.name}")
     private String myIdentifierSystem;
 
+    private Patient patient;
+
     @BeforeEach
     void setUp() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("patient-example.json");
@@ -51,8 +54,8 @@ class PatientMapperTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
         }
-        System.out.print(sb.toString());
-        patientMapper.parseResourceFromJsonString(sb.toString());
+        //System.out.print(sb.toString());
+        patient = patientMapper.parseResourceFromJsonString(sb.toString());
     }
 
     @AfterEach
@@ -64,9 +67,10 @@ class PatientMapperTest {
         Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
         Person person = persons.get(0);
-        //R4Patient patient = new R4Patient();
+        R4Patient patient = new R4Patient();
+        //R4Patient patient1 = (R4Patient) new Patient();
         patientMapper.setOmopResource(person);
-        //patientMapper.setFhirResource(patient);
+        patientMapper.setFhirResource(patient);
         patientMapper.mapOmopToFhir();
         List<Identifier> identifiers = patientMapper.fhirResource.getIdentifier();
         for(Identifier identifier: identifiers) {
