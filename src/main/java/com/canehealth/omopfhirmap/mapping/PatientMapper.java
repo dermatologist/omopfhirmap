@@ -1,15 +1,11 @@
 package com.canehealth.omopfhirmap.mapping;
 
-import com.canehealth.omopfhirmap.fhir.R4Patient;
 import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.utils.AddOmopKeyAsIdentifier;
 import com.canehealth.omopfhirmap.utils.OmopConstants;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hl7.fhir.r4.model.Enumerations;
-import org.hl7.fhir.r4.model.Organization;
-import org.hl7.fhir.r4.model.Practitioner;
-import org.hl7.fhir.r4.model.Reference;
+import org.hl7.fhir.r4.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +15,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Component
-public class PatientMapper extends BaseMapper<Person, R4Patient>{
+public class PatientMapper extends BaseMapper<Person, Patient>{
 
     @Value("${omopfhir.system.name}")
     private String myIdentifierSystem;

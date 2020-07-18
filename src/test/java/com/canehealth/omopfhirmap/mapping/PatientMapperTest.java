@@ -1,11 +1,9 @@
 package com.canehealth.omopfhirmap.mapping;
 
-import org.hl7.fhir.r4.model.Patient;
-import com.canehealth.omopfhirmap.fhir.R4Patient;
 import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.services.PersonService;
 import org.hl7.fhir.r4.model.Identifier;
-import org.junit.Assert;
+import org.hl7.fhir.r4.model.Patient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
-import java.io.InputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class PatientMapperTest {
@@ -41,10 +39,11 @@ class PatientMapperTest {
     void setUp() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("patient-example.json");
         //creating an InputStreamReader object
+        assert inputStream != null;
         InputStreamReader isReader = new InputStreamReader(inputStream);
         //Creating a BufferedReader object
         BufferedReader reader = new BufferedReader(isReader);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String str;
         try {
 			while((str = reader.readLine())!= null){
@@ -67,8 +66,6 @@ class PatientMapperTest {
         Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
         Person person = persons.get(0);
-        R4Patient patient = new R4Patient();
-        //R4Patient patient1 = (R4Patient) new Patient();
         patientMapper.setOmopResource(person);
         patientMapper.setFhirResource(patient);
         patientMapper.mapOmopToFhir();
