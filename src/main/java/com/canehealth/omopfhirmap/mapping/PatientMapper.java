@@ -90,8 +90,10 @@ public class PatientMapper extends BaseMapper<Person, Patient>{
                     List<Person> persons = personService.listByPersonAndPeriod(Integer.parseInt(myId), today , today);
                     if(persons.isEmpty())
                         System.out.println("Does not exist");
-                    else
-                        System.out.println("Exists");
+                    else {
+                        // Exists
+                        this.omopResource = null;
+                    }
                 }
             }
     }
