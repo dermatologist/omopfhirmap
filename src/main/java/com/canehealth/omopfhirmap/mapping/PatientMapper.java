@@ -64,7 +64,7 @@ public class PatientMapper extends BaseMapper<Person, Patient>
 
         //  generalPractitioner		0..*	Reference(Organization | Practitioner | PractitionerRole)
         //  Patient's nominated primary care provider
-        if(this.omopResource.getProviderId()!=null) {
+        if(this.omopResource.getProviderId()!= null && this.omopResource.getProviderId()!= 0L ) {
             List<Reference> generalPractitioners = this.fhirResource.getGeneralPractitioner();
             Practitioner practitioner = new Practitioner();
             practitioner.setId(this.omopResource.getProviderId().toString());
@@ -92,8 +92,7 @@ public class PatientMapper extends BaseMapper<Person, Patient>
                     String myId = identifier.getValue();
                     Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
                     List<Person> persons = personService.listByPersonAndPeriod(Integer.parseInt(myId), today , today);
-                    if(persons.isEmpty()) {
-                        System.out.println("Does not exist");
+                    if(persons.isEmpty()) { // Does not exist. So add
                         // person_source_value	varchar(50)
                         // An (encrypted) key derived from the person identifier in the source data.
                         // This is necessary when a use case requires a link back to the person data
@@ -111,10 +110,25 @@ public class PatientMapper extends BaseMapper<Person, Patient>
                             this.omopResource.setMonthOfBirth(month);
                             this.omopResource.setDayOfBirth(day);
                         }
+                        // practitionerId
+                        try{
+                            List<Reference> generalPractitioners = this.fhirResource.getGeneralPractitioner();
+                            String practitionerString = generalPractitioners.get(0).getReference();
+                            Integer practitioner_id = Integer.parseInt(practitionerString.replace("Practitioner/",""));
+                            this.omopResource.setProviderId(practitioner_id);              
+                        }catch (Exception e){ //Does not exist or is not an integer
+                            //TODO log
+                        }
                         // care_side_id
-//                        Reference reference = this.fhirResource.getManagingOrganization();
-//                        Organization organization = (Organization) reference.getResource();
-//                        this.omopResource.setCareSiteId(Integer.parseInt(organization.getId()));
+                        // Ref: https://hapifhir.io/hapi-fhir/docs/model/references.html
+                       try{
+                            String orgString = this.fhirResource.getManagingOrganization().getReference();
+                            Integer care_site_id = Integer.parseInt(orgString.replace("Organization/",""));
+                            this.omopResource.setCareSiteId(care_site_id);
+//                        }catch (NumberFormatException e){
+                        }catch (Exception e){ //Does not exist or is not an integer
+                            //TODO log
+                        }
                     }
                     else {
                         // Exists
