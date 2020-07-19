@@ -73,9 +73,9 @@ public class PatientMapper extends BaseMapper<Person, Patient>
 
         // managingOrganization	Σ	0..1	Reference(Organization)
         // Organization that is the custodian of the patient record
-        if(this.omopResource.getLocationId()!=null) {
+        if(this.omopResource.getCareSiteId()!=null) {
             Organization organization = new Organization();
-            organization.setId(this.omopResource.getLocationId().toString());
+            organization.setId(this.omopResource.getCareSiteId().toString());
             Reference reference = new Reference();
             reference.setResource(organization);
             this.fhirResource.setManagingOrganization(reference);
@@ -108,6 +108,7 @@ public class PatientMapper extends BaseMapper<Person, Patient>
                             this.omopResource.setMonthOfBirth(month);
                             this.omopResource.setDayOfBirth(day);
                         }
+                        // care_side_id
                     }
                     else {
                         // Exists
