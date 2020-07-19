@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -80,6 +81,14 @@ class PatientMapperTest {
 
     @Test
     void mapFhirToOmopTest() {
+        if(patientMapper.fhirResource == null){
+            Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+            List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
+            Person person = persons.get(0);
+            patientMapper.setOmopResource(person);
+            patientMapper.setFhirResource(patient);
+            patientMapper.mapOmopToFhir();
+        }
         List<Identifier> identifiers = patientMapper.fhirResource.getIdentifier();
         for(Identifier identifier: identifiers) {
             if (identifier.getSystem().equals(myIdentifierSystem))
