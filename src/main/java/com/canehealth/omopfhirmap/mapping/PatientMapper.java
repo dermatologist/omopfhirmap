@@ -18,7 +18,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Component
-public class PatientMapper extends BaseMapper<Person, Patient>{
+public class PatientMapper extends BaseMapper<Person, Patient>
+                            implements IBaseMapper{
 
     @Value("${omopfhir.system.name}")
     private String myIdentifierSystem;
