@@ -24,6 +24,9 @@ public class PatientMapper extends BaseMapper<Person, Patient>
     @Value("${omopfhir.system.name}")
     private String myIdentifierSystem;
 
+    @Value("${omopfhir.caresite.name}")
+    private String myCaresite;
+
     @Autowired
     PersonService personService;
 
@@ -73,12 +76,12 @@ public class PatientMapper extends BaseMapper<Person, Patient>
 
         // managingOrganization	Σ	0..1	Reference(Organization)
         // Organization that is the custodian of the patient record
-        if(this.omopResource.getCareSiteId()!=null) {
-            Organization organization = new Organization();
-            organization.setId(this.omopResource.getCareSiteId().toString());
-            Reference reference = new Reference();
-            reference.setResource(organization);
-            this.fhirResource.setManagingOrganization(reference);
+        if (this.omopResource.getCareSiteId() != null && this.omopResource.getCareSiteId() != 0L) {
+            IdType idType = new IdType();
+            idType.setValueAsString("Organization/"+this.omopResource.getCareSiteId().toString());
+            Reference managingOrganization = new Reference(idType);
+            managingOrganization.setDisplay(myCaresite);
+            this.fhirResource.setManagingOrganization(managingOrganization);
         }
     }
 
@@ -109,6 +112,9 @@ public class PatientMapper extends BaseMapper<Person, Patient>
                             this.omopResource.setDayOfBirth(day);
                         }
                         // care_side_id
+//                        Reference reference = this.fhirResource.getManagingOrganization();
+//                        Organization organization = (Organization) reference.getResource();
+//                        this.omopResource.setCareSiteId(Integer.parseInt(organization.getId()));
                     }
                     else {
                         // Exists
