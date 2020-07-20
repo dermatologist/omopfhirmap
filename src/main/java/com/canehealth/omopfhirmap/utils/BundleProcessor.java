@@ -7,15 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class BundleProcessor {
 
-    public static Bundle bundle;
+    public static Bundle bundle = new Bundle();
 
     public void add(Resource resource){
-        if(bundle == null){
-            bundle = new Bundle();
-            bundle.setType(Bundle.BundleType.COLLECTION);
+        if(this.bundle.getType() == null){
+            this.bundle.setType(Bundle.BundleType.COLLECTION);
         }
         Bundle.BundleEntryComponent bundleEntryComponent = new Bundle.BundleEntryComponent();
         bundleEntryComponent.setResource(resource);
-        bundle.addEntry(bundleEntryComponent);
+        this.bundle.addEntry(bundleEntryComponent);
     }
 }
