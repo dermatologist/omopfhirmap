@@ -32,8 +32,7 @@ public class PatientMapper extends BaseMapper<Person, Patient>
 
     @Override
     public Patient mapOmopToFhir(){
-        if(this.fhirResource == null)
-            this.fhirResource = new Patient();
+        this.fhirResource = new Patient(); // Initialize
         AddOmopKeyAsIdentifier<Person> addOmopKeyAsIdentifier = new AddOmopKeyAsIdentifier<>();
         this.fhirResource.addIdentifier(addOmopKeyAsIdentifier.add(this.omopResource, myIdentifierSystem));
 
@@ -91,6 +90,7 @@ public class PatientMapper extends BaseMapper<Person, Patient>
 
     @Override
     public Person mapFhirToOmop(){
+            this.omopResource = new Person(); // Initialize
             List<Identifier> identifiers = this.fhirResource.getIdentifier();
             for(Identifier identifier: identifiers){
                 if(identifier.getSystem().equals(myIdentifierSystem)){
