@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @Component
 public class PatientMapper extends BaseMapper<Person, Patient>
-                            implements IBaseMapper{
+                            implements IBaseMapper<Person, Patient>{
 
     @Value("${omopfhir.system.name}")
     private String myIdentifierSystem;
