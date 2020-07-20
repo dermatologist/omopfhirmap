@@ -8,6 +8,7 @@ import com.canehealth.omopfhirmap.fetchers.*;
 import com.canehealth.omopfhirmap.models.*;
 import com.canehealth.omopfhirmap.services.CohortService;
 
+import com.canehealth.omopfhirmap.utils.BundleProcessor;
 import org.hl7.fhir.r4.model.Bundle;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,9 +46,11 @@ public class MainMapper {
     @Autowired
     PatientMapper patientMapper;
 
+    @Autowired
+    BundleProcessor bundleProcessor;
+
     private List<Cohort> cohorts = new ArrayList<>();
     private Cohort cohort;
-    private static Bundle bundle;
     private int cohortId = 0;
     private int cohortSize = 0;
     private List<Person> persons = new ArrayList<>();
@@ -112,7 +115,6 @@ public class MainMapper {
     }
 
     public void createBundle() throws InterruptedException {
-        bundle = new Bundle();
         fetchCohort();
         fetchOmopResources();
         for(Person person: persons){
@@ -128,18 +130,18 @@ public class MainMapper {
     public String encodeBundleToJsonString(){
 		// Instantiate a new JSON parser
 		IParser parser = ctx.newJsonParser();
-		return parser.encodeResourceToString(MainMapper.bundle);
+		return parser.encodeResourceToString(BundleProcessor.bundle);
 	}
 
 	public String encodeBundleoXmlString(){
-		return ctx.newXmlParser().encodeResourceToString(MainMapper.bundle);
+		return ctx.newXmlParser().encodeResourceToString(BundleProcessor.bundle);
 	}
 
 	public Bundle parseBundleFromJsonString(String fhirBundleAsString){
 		// Parse it
         IParser parser = ctx.newJsonParser();
-        MainMapper.bundle = (Bundle) parser.parseResource(fhirBundleAsString);
-		return MainMapper.bundle;
+        BundleProcessor.bundle = (Bundle) parser.parseResource(fhirBundleAsString);
+		return BundleProcessor.bundle;
 	}
 
 }
