@@ -8,6 +8,8 @@ class OmopfhirmapApplicationTests {
 
 	@Test
 	void contextLoads() {
+		String[] args = {"Test", "this"};
+		OmopfhirmapApplication.main(args);
 	}
 
 }
