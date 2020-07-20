@@ -21,9 +21,9 @@ public class OmopfhirmapApplication  implements CommandLineRunner {
 	public static void main(String[] args) {
         LOG.info("STARTING THE APPLICATION");
         
-        System.out.print(OmopConstants.LICENSE);
+        System.out.println(OmopConstants.LICENSE);
         if (args.length != 3)
-            System.out.print(OmopConstants.HELPSTRING);
+            System.out.println(OmopConstants.HELPSTRING);
 
 		SpringApplication.run(OmopfhirmapApplication.class, args);
 		LOG.info("APPLICATION FINISHED");
@@ -49,10 +49,16 @@ public class OmopfhirmapApplication  implements CommandLineRunner {
                 String file_name = _destination;
                 mainMapper.setCohortId(cohortId);
                 mainMapper.createBundle();
-                System.out.print(mainMapper.encodeBundleToJsonString()); 
+                System.out.println(mainMapper.encodeBundleToJsonString()); 
             }catch(Exception e){
-                System.out.print(OmopConstants.HELPSTRING);
+                System.out.println(OmopConstants.HELPSTRING);
             }
+        }else if(_function.equals("tofhirserver")){
+            System.out.println("To FHIR SERVER");
+        }else if(_function.equals("toomop")){
+            System.out.println("To OMOP");
+        }else{
+            System.out.println(OmopConstants.HELPSTRING);
         }
     }
 
