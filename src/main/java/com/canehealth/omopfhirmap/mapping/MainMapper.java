@@ -5,13 +5,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.canehealth.omopfhirmap.fetchers.*;
-import com.canehealth.omopfhirmap.fhir.R4Bundle;
 import com.canehealth.omopfhirmap.models.*;
 import com.canehealth.omopfhirmap.services.CohortService;
+
+import org.hl7.fhir.r4.model.Bundle;
+import org.hl7.fhir.r4.model.Bundle.BundleType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
+
+import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.parser.IParser;
 
 @Component
 @Data
@@ -40,7 +45,7 @@ public class MainMapper {
 
     private List<Cohort> cohorts = new ArrayList<>();
     private Cohort cohort;
-    private R4Bundle r4Bundle;
+    private Bundle bundle;
     private int cohortId = 0;
     private int cohortSize = 0;
     private List<Person> persons = new ArrayList<>();
@@ -49,6 +54,10 @@ public class MainMapper {
     private List<DrugExposure> drugExposures = new ArrayList<>();
     private List<VisitOccurrence> visitOccurrences = new ArrayList<>();
     private List<ProcedureOccurrence> procedureOccurrences = new ArrayList<>();
+
+    // Create a FHIR context
+	FhirContext ctx = FhirContext.forR4();
+
 
     public void fetchCohort() {
         if (this.cohortId > 0) {
@@ -99,8 +108,28 @@ public class MainMapper {
     }
 
     public void createBundle(){
-        
+        bundle = new Bundle();
     }
 
+    public void writeOmop(){
+
+    }
+
+    public String encodeBundleToJsonString(){
+		// Instantiate a new JSON parser
+		IParser parser = ctx.newJsonParser();
+		return parser.encodeResourceToString(this.bundle);
+	}
+
+	public String encodeBundleoXmlString(){
+		return ctx.newXmlParser().encodeResourceToString(this.bundle);
+	}
+
+	public Bundle parseBundleFromJsonString(String fhirBundleAsString){
+		// Parse it
+        IParser parser = ctx.newJsonParser();
+        this.bundle = (Bundle) parser.parseResource(fhirBundleAsString);
+		return this.bundle;
+	}
 
 }
