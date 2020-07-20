@@ -22,6 +22,8 @@ public class OmopfhirmapApplication  implements CommandLineRunner {
         LOG.info("STARTING THE APPLICATION");
         
         System.out.print(OmopConstants.LICENSE);
+        if (args.length != 3)
+            System.out.print(OmopConstants.HELPSTRING);
 
 		SpringApplication.run(OmopfhirmapApplication.class, args);
 		LOG.info("APPLICATION FINISHED");

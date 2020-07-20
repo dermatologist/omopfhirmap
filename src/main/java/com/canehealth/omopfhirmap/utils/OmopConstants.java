@@ -7,4 +7,10 @@ public class OmopConstants {
     "This program comes with ABSOLUTELY NO WARRANTY\n" +
     "This is free software, and you are welcome to redistribute it\n"+
     "under certain conditions as detailed in LICENSE file.\n";
+
+    public static String HELPSTRING = "\nUsage:\n"+
+    "omopfhirmap function source destination\n"+
+    "function = help | tofhirbundle | tofhirserver | toomop\n"+
+    "source = cohort id in atlas | bundle json file\n" +
+    "destination = bundle json file | fhir server URL\n";
 }

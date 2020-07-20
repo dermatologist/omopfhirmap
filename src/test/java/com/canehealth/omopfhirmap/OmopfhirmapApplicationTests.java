@@ -8,7 +8,7 @@ class OmopfhirmapApplicationTests {
 
 	@Test
 	void contextLoads() {
-		String[] args = {"Test", "this"};
+		String[] args = {"tofhirbundle", "2", "bundle.json"};
 		OmopfhirmapApplication.main(args);
 	}
 
