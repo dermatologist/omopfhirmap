@@ -120,6 +120,8 @@ public class MainMapper {
     public void createBundle() throws InterruptedException {
         fetchCohort();
         System.out.println("TODO Fetch cohort");
+        //TODO remove
+        trimList(5);
         fetchOmopResources();
         System.out.println("TODO Fetch Resources");
 //        for(Person person: persons){
@@ -133,6 +135,7 @@ public class MainMapper {
             executor.execute(myRunnable);
         }
         executor.shutdown();
+        System.out.println(BundleProcessor.bundle);
     }
 
     public void writeOmop(){
