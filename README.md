@@ -9,12 +9,26 @@ Omopfhirmap is a command-line tool for mapping a [OHDSI](https://www.ohdsi.org/)
 * To export a cohort to a FHIR based analytics tool.
 * To load new resources to OMOP CDM databases for incremental ETL.
 
+## Build
+
+```
+mvn clean package
+
+```
+
 ## Usage
 
-WIP
+* Work in progress
+
+```shell script
+java -jar <omopfhirmap.jar> <function> <source> <destination>
+
+```
 
 ## Design
 
+* JAVA >=13
+* Multi-Threaded
 * Uses spring-boot and JPA for wiring of services and abstraction of database.
 
 ## Other projects

@@ -1,12 +1,9 @@
 package com.canehealth.omopfhirmap.fhir;
 
+import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.Patient;
-
-import ca.uhn.fhir.model.api.annotation.ResourceDef;
-import org.springframework.beans.factory.annotation.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @ResourceDef(name = "Patient")

@@ -7,11 +7,11 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import com.canehealth.omopfhirmap.models.BaseModel;
 
-import org.hl7.fhir.r4.model.Identifier;
+import com.canehealth.omopfhirmap.models.Person;
+import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.Resource;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 
 @Data
 public class BaseMapper<M extends BaseModel, F extends Resource>{
@@ -42,5 +42,17 @@ public class BaseMapper<M extends BaseModel, F extends Resource>{
 		return ctx.newXmlParser().encodeResourceToString(this.fhirResource);
 	}
 
+	public F parseResourceFromJsonString(String fhirResourceAsString){
+		// Parse it
+		IParser parser = ctx.newJsonParser();
+		return (F) parser.parseResource(fhirResourceAsString);
+	}
 
+	public F mapOmopToFhir(){
+		return fhirResource;
+	}
+
+	public M mapFhirToOmop(){
+		return omopResource;
+	}
 }
