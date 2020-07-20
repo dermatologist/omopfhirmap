@@ -119,23 +119,16 @@ public class MainMapper {
 
     public void createBundle() throws InterruptedException {
         fetchCohort();
-        System.out.println("TODO Fetch cohort");
         //TODO remove
         trimList(5);
         fetchOmopResources();
-        System.out.println("TODO Fetch Resources");
-//        for(Person person: persons){
-//            patientMapper.setOmopResource(person);
-//            patientMapper.mapOmopToFhir();
-//        }
         ExecutorService executor = Executors.newFixedThreadPool(4);
         for(Person person: persons){
-            System.out.println("TODO Processing:" + person.getId().toString());
+            System.out.println("Processing:" + person.getId().toString());
             BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, patientMapper, bundleProcessor);
             executor.execute(myRunnable);
         }
         executor.shutdown();
-        System.out.println(BundleProcessor.bundle);
     }
 
     public void writeOmop(){

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.canehealth.omopfhirmap.mapping.MainMapper;
 import com.canehealth.omopfhirmap.utils.OmopConstants;
+import com.canehealth.omopfhirmap.utils.HandleJsonFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +47,10 @@ public class OmopfhirmapApplication  implements CommandLineRunner {
         if(_function.equals("tofhirbundle")){
             try{
                 int cohortId = Integer.parseInt(_source);
-                String file_name = _destination;
+                String fileName = _destination;
                 mainMapper.setCohortId(cohortId);
                 mainMapper.createBundle();
+                HandleJsonFile.write(mainMapper.encodeBundleToJsonString(), fileName);
                 System.out.println(mainMapper.encodeBundleToJsonString()); 
             }catch(Exception e){
                 System.out.println(OmopConstants.HELPSTRING);
