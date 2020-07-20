@@ -42,9 +42,12 @@ public class MainMapper {
     @Autowired
     ProcedureOccurrenceFetcher procedureOccurrenceFetcher;
 
+    @Autowired
+    PatientMapper patientMapper;
+
     private List<Cohort> cohorts = new ArrayList<>();
     private Cohort cohort;
-    private Bundle bundle;
+    private static Bundle bundle;
     private int cohortId = 0;
     private int cohortSize = 0;
     private List<Person> persons = new ArrayList<>();
@@ -75,39 +78,47 @@ public class MainMapper {
         personFetcher.setCohorts(this.cohorts);
         personFetcher.start();
         
-        observationFetcher.setCohorts(this.cohorts);
-        observationFetcher.start();
+        // @TODO uncomment along with implementations
 
-        measurementFetcher.setCohorts(this.cohorts);
-        measurementFetcher.start();
+        // observationFetcher.setCohorts(this.cohorts);
+        // observationFetcher.start();
 
-        drugExposureFetcher.setCohorts(this.cohorts);
-        drugExposureFetcher.start();
+        // measurementFetcher.setCohorts(this.cohorts);
+        // measurementFetcher.start();
 
-        visitOccurrenceFetcher.setCohorts(this.cohorts);
-        visitOccurrenceFetcher.start();
+        // drugExposureFetcher.setCohorts(this.cohorts);
+        // drugExposureFetcher.start();
 
-        procedureOccurrenceFetcher.setCohorts(this.cohorts);
-        procedureOccurrenceFetcher.start();
+        // visitOccurrenceFetcher.setCohorts(this.cohorts);
+        // visitOccurrenceFetcher.start();
+
+        // procedureOccurrenceFetcher.setCohorts(this.cohorts);
+        // procedureOccurrenceFetcher.start();
 
 
-        visitOccurrenceFetcher.join();
-        procedureOccurrenceFetcher.join();
-        drugExposureFetcher.join();
-        measurementFetcher.join();
-        observationFetcher.join();
+        // visitOccurrenceFetcher.join();
+        // procedureOccurrenceFetcher.join();
+        // drugExposureFetcher.join();
+        // measurementFetcher.join();
+        // observationFetcher.join();
         personFetcher.join();
         
         this.persons = personFetcher.getOmopResources();
-        this.observations = observationFetcher.getOmopResources();
-        this.measurements = measurementFetcher.getOmopResources();
-        this.drugExposures = drugExposureFetcher.getOmopResources();
-        this.visitOccurrences = visitOccurrenceFetcher.getOmopResources();
-        this.procedureOccurrences = procedureOccurrenceFetcher.getOmopResources();
+        // this.observations = observationFetcher.getOmopResources();
+        // this.measurements = measurementFetcher.getOmopResources();
+        // this.drugExposures = drugExposureFetcher.getOmopResources();
+        // this.visitOccurrences = visitOccurrenceFetcher.getOmopResources();
+        // this.procedureOccurrences = procedureOccurrenceFetcher.getOmopResources();
     }
 
-    public void createBundle(){
+    public void createBundle() throws InterruptedException {
         bundle = new Bundle();
+        fetchCohort();
+        fetchOmopResources();
+        for(Person person: persons){
+            patientMapper.setOmopResource(person);
+            patientMapper.mapOmopToFhir();
+        }
     }
 
     public void writeOmop(){
@@ -117,18 +128,18 @@ public class MainMapper {
     public String encodeBundleToJsonString(){
 		// Instantiate a new JSON parser
 		IParser parser = ctx.newJsonParser();
-		return parser.encodeResourceToString(this.bundle);
+		return parser.encodeResourceToString(MainMapper.bundle);
 	}
 
 	public String encodeBundleoXmlString(){
-		return ctx.newXmlParser().encodeResourceToString(this.bundle);
+		return ctx.newXmlParser().encodeResourceToString(MainMapper.bundle);
 	}
 
 	public Bundle parseBundleFromJsonString(String fhirBundleAsString){
 		// Parse it
         IParser parser = ctx.newJsonParser();
-        this.bundle = (Bundle) parser.parseResource(fhirBundleAsString);
-		return this.bundle;
+        MainMapper.bundle = (Bundle) parser.parseResource(fhirBundleAsString);
+		return MainMapper.bundle;
 	}
 
 }
