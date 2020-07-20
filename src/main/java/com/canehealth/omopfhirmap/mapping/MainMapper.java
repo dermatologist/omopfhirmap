@@ -47,9 +47,6 @@ public class MainMapper {
     ProcedureOccurrenceFetcher procedureOccurrenceFetcher;
 
     @Autowired
-    PatientMapper patientMapper;
-
-    @Autowired
     BundleProcessor bundleProcessor;
 
     private List<Cohort> cohorts = new ArrayList<>();
@@ -120,12 +117,13 @@ public class MainMapper {
     public void createBundle() throws InterruptedException {
         fetchCohort();
         //TODO remove
-        trimList(5);
+        trimList(50);
         fetchOmopResources();
         ExecutorService executor = Executors.newFixedThreadPool(4);
         for(Person person: persons){
             System.out.println("Processing:" + person.getId().toString());
-            BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, patientMapper, bundleProcessor);
+            // patientMapper instance should not be shared by the threads, hence new
+            BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, new PatientMapper(), bundleProcessor);
             executor.execute(myRunnable);
         }
         executor.shutdown();
