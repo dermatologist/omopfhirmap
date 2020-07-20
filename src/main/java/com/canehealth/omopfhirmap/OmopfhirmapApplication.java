@@ -32,16 +32,27 @@ public class OmopfhirmapApplication  implements CommandLineRunner {
 	@Override
     public void run(String... args) {
         LOG.info("EXECUTING : command line runner");
+        
 
-        mainMapper.createBundle();
-        System.out.print(mainMapper.encodeBundleToJsonString()); 
-
-        String testSt = mainMapper.encodeBundleToJsonString();
-        System.out.print(mainMapper.parseBundleFromJsonString(testSt).toString()); 
-
- 
+        String _function = "";
+        String _source = "";
+        String _destination = "";   
         for (int i = 0; i < args.length; ++i) {
             LOG.info("args[{}]: {}", i, args[i]);
+            _function = args[0];
+            _source = args[1];
+            _destination = args[2];
+        }
+        if(_function.equals("tofhirbundle")){
+            try{
+                int cohortId = Integer.parseInt(_source);
+                String file_name = _destination;
+                mainMapper.setCohortId(cohortId);
+                mainMapper.createBundle();
+                System.out.print(mainMapper.encodeBundleToJsonString()); 
+            }catch(Exception e){
+                System.out.print(OmopConstants.HELPSTRING);
+            }
         }
     }
 

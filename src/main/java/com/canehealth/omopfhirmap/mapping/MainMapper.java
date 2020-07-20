@@ -9,7 +9,6 @@ import com.canehealth.omopfhirmap.models.*;
 import com.canehealth.omopfhirmap.services.CohortService;
 
 import org.hl7.fhir.r4.model.Bundle;
-import org.hl7.fhir.r4.model.Bundle.BundleType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
