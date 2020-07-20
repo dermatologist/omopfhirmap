@@ -28,6 +28,7 @@ java -jar <omopfhirmap.jar> <function> <source> <destination>
 ## Design
 
 * JAVA >=13
+* FHIR R4
 * Multi-Threaded
 * Uses spring-boot and JPA for wiring of services and abstraction of database.
 
