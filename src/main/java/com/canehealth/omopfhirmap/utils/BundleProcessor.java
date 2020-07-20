@@ -10,11 +10,11 @@ public class BundleProcessor {
     public static Bundle bundle = new Bundle();
 
     public void add(Resource resource){
-        if(this.bundle.getType() == null){
-            this.bundle.setType(Bundle.BundleType.COLLECTION);
+        if(BundleProcessor.bundle.getType() == null){
+            BundleProcessor.bundle.setType(Bundle.BundleType.COLLECTION);
         }
         Bundle.BundleEntryComponent bundleEntryComponent = new Bundle.BundleEntryComponent();
         bundleEntryComponent.setResource(resource);
-        this.bundle.addEntry(bundleEntryComponent);
+        BundleProcessor.bundle.addEntry(bundleEntryComponent);
     }
 }
