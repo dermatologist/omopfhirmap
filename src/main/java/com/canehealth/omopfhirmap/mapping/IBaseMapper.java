@@ -1,7 +1,10 @@
 package com.canehealth.omopfhirmap.mapping;
 
-public interface IBaseMapper {
+import com.canehealth.omopfhirmap.models.BaseModel;
+import org.hl7.fhir.r4.model.Resource;
 
-    void mapOmopToFhir();
-    void mapFhirToOmop();
+public interface IBaseMapper<F extends Resource, M extends BaseModel> {
+
+    F mapOmopToFhir();
+    M mapFhirToOmop();
 }
