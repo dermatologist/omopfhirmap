@@ -2,6 +2,8 @@ package com.canehealth.omopfhirmap.mapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import com.canehealth.omopfhirmap.fetchers.*;
@@ -117,9 +119,32 @@ public class MainMapper {
     public void createBundle() throws InterruptedException {
         fetchCohort();
         fetchOmopResources();
+//        for(Person person: persons){
+//            patientMapper.setOmopResource(person);
+//            patientMapper.mapOmopToFhir();
+//        }
+        ExecutorService executor = Executors.newFixedThreadPool(4);
         for(Person person: persons){
+            executor.execute(new MyRunnable(person, patientMapper, bundleProcessor));
+        }
+        executor.shutdown();
+    }
+
+    //https://stackoverflow.com/questions/4297261/how-can-i-pass-a-variable-into-a-new-runnable-declaration
+    private static class MyRunnable implements Runnable {
+        private final Person person;
+        private final PatientMapper patientMapper;
+        private final BundleProcessor bundleProcessor;
+
+        MyRunnable(final Person person, final PatientMapper patientMapper, final BundleProcessor bundleProcessor) {
+            this.person = person;
+            this.patientMapper = patientMapper;
+            this.bundleProcessor = bundleProcessor;
+        }
+
+        public void run() {
             patientMapper.setOmopResource(person);
-            patientMapper.mapOmopToFhir();
+            bundleProcessor.add(patientMapper.mapOmopToFhir());
         }
     }
 
