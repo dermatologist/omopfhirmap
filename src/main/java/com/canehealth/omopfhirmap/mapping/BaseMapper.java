@@ -7,6 +7,8 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import com.canehealth.omopfhirmap.models.BaseModel;
 
+import com.canehealth.omopfhirmap.models.Person;
+import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.Resource;
 
 import lombok.Data;
@@ -46,5 +48,11 @@ public class BaseMapper<M extends BaseModel, F extends Resource>{
 		return (F) parser.parseResource(fhirResourceAsString);
 	}
 
+	public F mapOmopToFhir(){
+		return fhirResource;
+	}
 
+	public M mapFhirToOmop(){
+		return omopResource;
+	}
 }

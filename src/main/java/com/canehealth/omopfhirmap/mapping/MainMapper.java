@@ -11,6 +11,7 @@ import com.canehealth.omopfhirmap.models.*;
 import com.canehealth.omopfhirmap.services.CohortService;
 
 import com.canehealth.omopfhirmap.utils.BundleProcessor;
+import com.canehealth.omopfhirmap.utils.BundleRunnable;
 import org.hl7.fhir.r4.model.Bundle;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -125,27 +126,10 @@ public class MainMapper {
 //        }
         ExecutorService executor = Executors.newFixedThreadPool(4);
         for(Person person: persons){
-            executor.execute(new MyRunnable(person, patientMapper, bundleProcessor));
+            BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, patientMapper, bundleProcessor);
+            executor.execute(myRunnable);
         }
         executor.shutdown();
-    }
-
-    //https://stackoverflow.com/questions/4297261/how-can-i-pass-a-variable-into-a-new-runnable-declaration
-    private static class MyRunnable implements Runnable {
-        private final Person person;
-        private final PatientMapper patientMapper;
-        private final BundleProcessor bundleProcessor;
-
-        MyRunnable(final Person person, final PatientMapper patientMapper, final BundleProcessor bundleProcessor) {
-            this.person = person;
-            this.patientMapper = patientMapper;
-            this.bundleProcessor = bundleProcessor;
-        }
-
-        public void run() {
-            patientMapper.setOmopResource(person);
-            bundleProcessor.add(patientMapper.mapOmopToFhir());
-        }
     }
 
     public void writeOmop(){
