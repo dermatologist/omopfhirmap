@@ -9,7 +9,7 @@ import java.sql.Date;
 public class ProcedureOccurrence extends BaseModel{
 
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Column(name = "procedure_occurrence_id", nullable = false)
   private Integer procedureOccurrenceId;
   @Column(name = "person_id", nullable = false)

@@ -10,7 +10,7 @@ import lombok.Data;
 public class VisitOccurrence extends BaseModel{
 
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Column(name = "visit_occurrence_id", nullable = false)
   private Integer visitOccurrenceId;
   @Column(name = "person_id", nullable = false)

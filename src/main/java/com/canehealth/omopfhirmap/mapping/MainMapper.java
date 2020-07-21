@@ -9,10 +9,14 @@ import java.util.stream.Collectors;
 import com.canehealth.omopfhirmap.fetchers.*;
 import com.canehealth.omopfhirmap.models.*;
 import com.canehealth.omopfhirmap.services.CohortService;
-
+import com.canehealth.omopfhirmap.services.PersonService;
 import com.canehealth.omopfhirmap.utils.BundleProcessor;
 import com.canehealth.omopfhirmap.utils.BundleRunnable;
+import com.canehealth.omopfhirmap.utils.OmopProcessor;
+
 import org.hl7.fhir.r4.model.Bundle;
+import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
@@ -29,7 +33,13 @@ public class MainMapper {
     CohortService cohortService;
 
     @Autowired
+    PersonService personService;
+
+    @Autowired
     PersonFetcher personFetcher;
+
+    @Autowired 
+    PatientMapper patientMapper;
 
     @Autowired
     ObservationFetcher observationFetcher;
@@ -59,10 +69,6 @@ public class MainMapper {
     private List<DrugExposure> drugExposures = new ArrayList<>();
     private List<VisitOccurrence> visitOccurrences = new ArrayList<>();
     private List<ProcedureOccurrence> procedureOccurrences = new ArrayList<>();
-
-    // Create a FHIR context
-	FhirContext ctx = FhirContext.forR4();
-
 
     public void fetchCohort() {
         if (this.cohortId > 0) {
@@ -116,38 +122,32 @@ public class MainMapper {
 
     public void createBundle() throws InterruptedException {
         fetchCohort();
-        //TODO remove
-        trimList(50);
         fetchOmopResources();
         ExecutorService executor = Executors.newFixedThreadPool(4);
         for(Person person: persons){
             System.out.println("Processing:" + person.getId().toString());
-            // patientMapper instance should not be shared by the threads, hence new
-            BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, new PatientMapper(), bundleProcessor);
+            BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, patientMapper, bundleProcessor);
             executor.execute(myRunnable);
         }
         executor.shutdown();
     }
 
-    public void writeOmop(){
-
+    public void writeOmop(String fhirBundleAsString, int cohortId){
+        BundleProcessor.parseBundleFromJsonString(fhirBundleAsString);
+        List<Bundle.BundleEntryComponent> fhirResources = BundleProcessor.bundle.getEntry();
+        
+        for(Bundle.BundleEntryComponent fhirEntry : fhirResources){
+            Resource fhirResource = fhirEntry.getResource();
+            System.out.println("Processing:" + fhirResource.fhirType());
+            //if(fhirResource.get)
+            if(fhirResource.fhirType().equals("Patient")){
+                OmopProcessor<Person, PersonService> omopProcessor = new OmopProcessor<>();
+                patientMapper.setFhirResource((Patient)fhirResource);
+                Person person = patientMapper.mapFhirToOmop();
+                if(person != null)
+                    omopProcessor.add(person, personService, cohortService, cohortId);
+            }
+        }
     }
-
-    public String encodeBundleToJsonString(){
-		// Instantiate a new JSON parser
-		IParser parser = ctx.newJsonParser();
-		return parser.encodeResourceToString(BundleProcessor.bundle);
-	}
-
-	public String encodeBundleoXmlString(){
-		return ctx.newXmlParser().encodeResourceToString(BundleProcessor.bundle);
-	}
-
-	public Bundle parseBundleFromJsonString(String fhirBundleAsString){
-		// Parse it
-        IParser parser = ctx.newJsonParser();
-        BundleProcessor.bundle = (Bundle) parser.parseResource(fhirBundleAsString);
-		return BundleProcessor.bundle;
-	}
 
 }

@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
+import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.repositories.ProcedureOccurrenceRepository;
 import com.canehealth.omopfhirmap.models.ProcedureOccurrence;
 
@@ -26,5 +27,7 @@ public class ProcedureOccurrenceService implements BaseService<ProcedureOccurren
     public List<ProcedureOccurrence> listByPersonAndPeriod(Integer personId, Date start, Date end){
         return procedureOccurrenceRepository.findByPersonIdAndProcedureDateBetween(personId, start, end);
     }
-    
+    public void save(ProcedureOccurrence procedureOccurrence){
+        procedureOccurrenceRepository.save(procedureOccurrence);
+    }
 }

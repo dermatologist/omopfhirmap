@@ -10,7 +10,7 @@ import lombok.Data;
 public class Measurement extends BaseModel{
 
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Column(name = "measurement_id", nullable = false)
   private Integer measurementId;
   @Column(name = "person_id", nullable = false)

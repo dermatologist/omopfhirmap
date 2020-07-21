@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
+import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.repositories.CohortRepository;
 import com.canehealth.omopfhirmap.models.Cohort;
 
@@ -21,5 +22,8 @@ public class CohortService {
     public List<Cohort> listByCohort(Integer cohortDefinitionId){
         return cohortRepository.findByCohortDefinitionId(cohortDefinitionId);
     }
-    
+
+    public void save(Cohort cohort){
+        cohortRepository.save(cohort);
+    }
 }

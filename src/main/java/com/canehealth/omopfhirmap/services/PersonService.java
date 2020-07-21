@@ -25,4 +25,8 @@ public class PersonService implements BaseService<PersonRepository, Person> {
     public List<Person> listByPersonAndPeriod(Integer personId, Date start, Date end){
         return personRepository.findByPersonId(personId);
     }
+
+    public void save(Person person){
+        personRepository.save(person);
+    }
 }

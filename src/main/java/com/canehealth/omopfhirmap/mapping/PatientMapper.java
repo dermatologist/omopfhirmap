@@ -115,6 +115,14 @@ public class PatientMapper extends BaseMapper<Person, Patient>
                             this.omopResource.setMonthOfBirth(month);
                             this.omopResource.setDayOfBirth(day);
                         }
+                        // Gender
+                        if(this.fhirResource.getGender() == Enumerations.AdministrativeGender.FEMALE)
+                            this.omopResource.setGenderConceptId(OmopConstants.OMOP_FEMALE);
+                        else if(this.fhirResource.getGender() == Enumerations.AdministrativeGender.MALE)
+                            this.omopResource.setGenderConceptId(OmopConstants.OMOP_MALE);
+                        else
+                            this.omopResource.setGenderConceptId(0);
+
                         // practitionerId
                         try{
                             List<Reference> generalPractitioners = this.fhirResource.getGeneralPractitioner();
@@ -134,6 +142,10 @@ public class PatientMapper extends BaseMapper<Person, Patient>
                         }catch (Exception e){ //Does not exist or is not an integer
                             //TODO log
                         }
+
+                        // TODO: Map race and ethnicity.
+                        this.omopResource.setEthnicityConceptId(0);
+                        this.omopResource.setRaceConceptId(0);
                     }
                     else {
                         // Exists

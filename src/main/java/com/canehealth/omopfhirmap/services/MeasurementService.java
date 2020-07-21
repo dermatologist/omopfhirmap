@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
+import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.repositories.MeasurementRepository;
 import com.canehealth.omopfhirmap.models.Measurement;
 
@@ -25,6 +26,9 @@ public class MeasurementService implements BaseService<MeasurementRepository, Me
 
     public List<Measurement> listByPersonAndPeriod(Integer personId, Date start, Date end){
         return measurementRepository.findByPersonIdAndMeasurementDateBetween(personId, start, end);
+    }
+    public void save(Measurement measurement){
+        measurementRepository.save(measurement);
     }
     
 }
