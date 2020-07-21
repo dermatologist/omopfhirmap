@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
+import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.repositories.ObservationRepository;
 import com.canehealth.omopfhirmap.models.Observation;
 
@@ -25,6 +26,9 @@ public class ObservationService implements BaseService<ObservationRepository, Ob
 
     public List<Observation> listByPersonAndPeriod(Integer personId, Date start, Date end){
         return observationRepository.findByPersonIdAndObservationDateBetween(personId, start, end);
+    }
+    public void save(Observation observation){
+        observationRepository.save(observation);
     }
     
 }

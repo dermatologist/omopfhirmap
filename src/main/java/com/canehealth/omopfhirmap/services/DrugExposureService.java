@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
+import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.repositories.DrugExposureRepository;
 import com.canehealth.omopfhirmap.models.DrugExposure;
 
@@ -26,5 +27,7 @@ public class DrugExposureService implements BaseService<DrugExposureRepository, 
     public List<DrugExposure> listByPersonAndPeriod(Integer personId, Date start, Date end){
         return drugExposureRepository.findByPersonIdAndDrugExposureStartDateBetween(personId, start, end);
     }
-    
+    public void save(DrugExposure drugExposure){
+        drugExposureRepository.save(drugExposure);
+    }
 }

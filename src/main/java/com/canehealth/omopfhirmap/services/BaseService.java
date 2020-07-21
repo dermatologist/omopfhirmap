@@ -14,5 +14,6 @@ public interface BaseService <J extends JpaRepository<?, Integer>, C extends Bas
     List<C> listByPerson(Integer personId);
 
     List<C> listByPersonAndPeriod(Integer personId, Date start, Date end);
-    
+
+    void save(C model);
 }

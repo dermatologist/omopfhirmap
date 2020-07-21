@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap.services;
 
+import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.repositories.VisitOccurrenceRepository;
 import com.canehealth.omopfhirmap.models.VisitOccurrence;
 
@@ -26,5 +27,8 @@ public class VisitOccurrenceService implements BaseService<VisitOccurrenceReposi
     public List<VisitOccurrence> listByPersonAndPeriod(Integer personId, Date start, Date end){
         return visitOccurrenceRepository.findByPersonIdAndVisitStartDateBetween(personId, start, end);
     }
-    
+
+    public void save(VisitOccurrence visitOccurrence){
+        visitOccurrenceRepository.save(visitOccurrence);
+    }
 }
