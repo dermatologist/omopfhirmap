@@ -1,4 +1,4 @@
-# omopfhirmap for mapping FHIR <--> OHDSI OMOP CDMContributions
+# omopfhirmap for mapping FHIR <--> OHDSI OMOP CDM
 
 ## About
 
