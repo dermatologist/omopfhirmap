@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class PatientMapperTest {
@@ -71,17 +71,22 @@ class PatientMapperTest {
     void mapOmopToFhirTest() {
         Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
-        Person person = persons.get(0);
-        patientMapper.setOmopResource(person);
-        patientMapper.setFhirResource(patient);
-        patientMapper.mapOmopToFhir();
-        List<Identifier> identifiers = patientMapper.fhirResource.getIdentifier();
-        for(Identifier identifier: identifiers) {
-            System.out.println(identifier.getSystem());
-            if(identifier.getSystem().equals(myIdentifierSystem))
-                assertEquals(identifier.getValue(), person.getPersonId().toString());
+        if(!persons.isEmpty()) {
+            Person person = persons.get(0);
+            patientMapper.setOmopResource(person);
+            patientMapper.setFhirResource(patient);
+            patientMapper.mapOmopToFhir();
+            List<Identifier> identifiers = patientMapper.fhirResource.getIdentifier();
+            for (Identifier identifier : identifiers) {
+                System.out.println(identifier.getSystem());
+                if (identifier.getSystem().equals(myIdentifierSystem))
+                    assertEquals(identifier.getValue(), person.getPersonId().toString());
+            }
+            System.out.print(patientMapper.encodeResourceToJsonString());
+        }else{
+            System.out.println("Person 2 is not present");
+            assertTrue(false);
         }
-        System.out.print(patientMapper.encodeResourceToJsonString());
     }
 
     @Test
@@ -92,15 +97,15 @@ class PatientMapperTest {
             List<Bundle.BundleEntryComponent> fhirResources = BundleProcessor.bundle.getEntry();
             for(Bundle.BundleEntryComponent fhirEntry : fhirResources){
                 Resource fhirResource = fhirEntry.getResource();
-                System.out.println("Processing:" + fhirResource.fhirType());
-                //if(fhirResource.get)
+                assertNotNull(fhirResource);
                 if(fhirResource.fhirType().equals("Patient")){
-                    OmopProcessor<Person, PersonService> omopProcessor = new OmopProcessor<>();
+                    System.out.println("Processing:" + fhirResource.fhirType());
                     patientMapper.setFhirResource((Patient)fhirResource);
                     Person person = patientMapper.mapFhirToOmop();
-                    if(person != null)
-                        System.out.println(patientMapper.omopResource.toString());
-                 }
+                    assertNotNull(person);
+                    System.out.println(patientMapper.omopResource.toString());
+
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
