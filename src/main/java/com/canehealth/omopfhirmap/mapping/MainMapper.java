@@ -9,10 +9,14 @@ import java.util.stream.Collectors;
 import com.canehealth.omopfhirmap.fetchers.*;
 import com.canehealth.omopfhirmap.models.*;
 import com.canehealth.omopfhirmap.services.CohortService;
-
+import com.canehealth.omopfhirmap.services.PersonService;
 import com.canehealth.omopfhirmap.utils.BundleProcessor;
 import com.canehealth.omopfhirmap.utils.BundleRunnable;
+import com.canehealth.omopfhirmap.utils.OmopProcessor;
+
 import org.hl7.fhir.r4.model.Bundle;
+import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Data;
@@ -29,7 +33,13 @@ public class MainMapper {
     CohortService cohortService;
 
     @Autowired
+    PersonService personService;
+
+    @Autowired
     PersonFetcher personFetcher;
+
+    @Autowired 
+    PatientMapper patientMapper;
 
     @Autowired
     ObservationFetcher observationFetcher;
@@ -129,8 +139,22 @@ public class MainMapper {
         executor.shutdown();
     }
 
-    public void writeOmop(){
-
+    public void writeOmop(String fhirBundleAsString, int cohortId){
+        parseBundleFromJsonString(fhirBundleAsString);
+        List<Bundle.BundleEntryComponent> fhirResources = BundleProcessor.bundle.getEntry();
+        
+        for(Bundle.BundleEntryComponent fhirEntry : fhirResources){
+            Resource fhirResource = fhirEntry.getResource();
+            System.out.println("Processing:" + fhirResource.fhirType());
+            //if(fhirResource.get)
+            if(fhirResource.fhirType().equals("Patient")){
+                OmopProcessor<Person, PersonService> omopProcessor = new OmopProcessor<>();
+                patientMapper.setFhirResource((Patient)fhirResource);
+                Person person = patientMapper.mapFhirToOmop();
+                if(person != null)
+                    omopProcessor.add(person, personService, cohortService, cohortId);
+            }
+        }
     }
 
     public String encodeBundleToJsonString(){
