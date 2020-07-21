@@ -122,14 +122,11 @@ public class MainMapper {
 
     public void createBundle() throws InterruptedException {
         fetchCohort();
-        //TODO remove
-        trimList(50);
         fetchOmopResources();
         ExecutorService executor = Executors.newFixedThreadPool(4);
         for(Person person: persons){
             System.out.println("Processing:" + person.getId().toString());
-            // patientMapper instance should not be shared by the threads, hence new
-            BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, new PatientMapper(), bundleProcessor);
+            BundleRunnable<Person, PatientMapper> myRunnable = new BundleRunnable<>(person, patientMapper, bundleProcessor);
             executor.execute(myRunnable);
         }
         executor.shutdown();
