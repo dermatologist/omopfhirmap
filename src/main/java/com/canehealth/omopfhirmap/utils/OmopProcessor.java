@@ -11,15 +11,16 @@ import java.util.Calendar;
 public class OmopProcessor<O extends BaseModel, S extends BaseService> {
 
     public void add(O omopResource, S service, CohortService cohortService, int cohortId){
-        if(omopResource.getClass().getSimpleName().equals("Patient")){
+        if(omopResource.getClass().getSimpleName().equals("Person")){
+            // Save resource first to get the autoincrement ID
+            service.save(omopResource);
             Cohort cohort = new Cohort();
             cohort.setCohortDefinitionId(cohortId);
-            cohort.setSubjectId(omopResource.getId());
+            cohort.setSubjectId(omopResource.getId()); // Get the newly assigned ID.
             Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
             cohort.setCohortStartDate(today);
             cohort.setCohortEndDate(today);
             cohortService.save(cohort);
-            service.save(omopResource);
         }else{
             service.save(omopResource);
         }
