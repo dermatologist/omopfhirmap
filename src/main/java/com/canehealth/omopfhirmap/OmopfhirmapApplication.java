@@ -1,5 +1,6 @@
 package com.canehealth.omopfhirmap;
 
+import com.canehealth.omopfhirmap.utils.BundleProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.CommandLineRunner;
@@ -52,8 +53,8 @@ public class OmopfhirmapApplication implements CommandLineRunner {
                 String fileName = _destination;
                 mainMapper.setCohortId(cohortId);
                 mainMapper.createBundle();
-                HandleJsonFile.write(mainMapper.encodeBundleToJsonString(), fileName);
-                System.out.println(mainMapper.encodeBundleToJsonString());
+                HandleJsonFile.write(BundleProcessor.encodeBundleToJsonString(), fileName);
+                System.out.println(BundleProcessor.encodeBundleToJsonString());
             } catch (Exception e) {
                 System.out.println(OmopConstants.HELPSTRING);
             }

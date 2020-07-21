@@ -11,8 +11,8 @@ class OmopfhirmapApplicationTests {
 	void contextLoads() {
 		int randomNum = ThreadLocalRandom.current().nextInt(2, 5 + 1);
 		randomNum = 2;
-		//String[] args = {"tofhirbundle", String.valueOf(randomNum), "/tmp/test-bundle.json"};
-		String[] args = {"toomop", "/tmp/test-bundle.json", String.valueOf(randomNum)};
+		//String[] args = {"tofhirbundle", String.valueOf(randomNum), "test-bundle.json"};
+		String[] args = {"toomop", "test-bundle.json", String.valueOf(randomNum)};
 		OmopfhirmapApplication.main(args);
 	}
 

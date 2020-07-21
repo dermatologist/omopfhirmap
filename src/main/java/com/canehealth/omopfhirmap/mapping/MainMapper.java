@@ -70,10 +70,6 @@ public class MainMapper {
     private List<VisitOccurrence> visitOccurrences = new ArrayList<>();
     private List<ProcedureOccurrence> procedureOccurrences = new ArrayList<>();
 
-    // Create a FHIR context
-	FhirContext ctx = FhirContext.forR4();
-
-
     public void fetchCohort() {
         if (this.cohortId > 0) {
             this.cohorts = this.cohortService.listByCohort(this.cohortId);
@@ -140,7 +136,7 @@ public class MainMapper {
     }
 
     public void writeOmop(String fhirBundleAsString, int cohortId){
-        parseBundleFromJsonString(fhirBundleAsString);
+        BundleProcessor.parseBundleFromJsonString(fhirBundleAsString);
         List<Bundle.BundleEntryComponent> fhirResources = BundleProcessor.bundle.getEntry();
         
         for(Bundle.BundleEntryComponent fhirEntry : fhirResources){
@@ -156,22 +152,5 @@ public class MainMapper {
             }
         }
     }
-
-    public String encodeBundleToJsonString(){
-		// Instantiate a new JSON parser
-		IParser parser = ctx.newJsonParser();
-		return parser.encodeResourceToString(BundleProcessor.bundle);
-	}
-
-	public String encodeBundleoXmlString(){
-		return ctx.newXmlParser().encodeResourceToString(BundleProcessor.bundle);
-	}
-
-	public Bundle parseBundleFromJsonString(String fhirBundleAsString){
-		// Parse it
-        IParser parser = ctx.newJsonParser();
-        BundleProcessor.bundle = (Bundle) parser.parseResource(fhirBundleAsString);
-		return BundleProcessor.bundle;
-	}
 
 }

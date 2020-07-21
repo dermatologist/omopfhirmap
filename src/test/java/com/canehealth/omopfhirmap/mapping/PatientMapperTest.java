@@ -2,8 +2,13 @@ package com.canehealth.omopfhirmap.mapping;
 
 import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.services.PersonService;
+import com.canehealth.omopfhirmap.utils.BundleProcessor;
+import com.canehealth.omopfhirmap.utils.HandleJsonFile;
+import com.canehealth.omopfhirmap.utils.OmopProcessor;
+import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.Resource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -81,21 +86,25 @@ class PatientMapperTest {
 
     @Test
     void mapFhirToOmopTest() {
-        if(patientMapper.fhirResource == null){
-            Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
-            Person person = persons.get(0);
-            patientMapper.setOmopResource(person);
-            patientMapper.setFhirResource(patient);
-            patientMapper.mapOmopToFhir();
+        try {
+            String fhirBundleAsString = HandleJsonFile.read("test-bundle.json");
+            BundleProcessor.parseBundleFromJsonString(fhirBundleAsString);
+            List<Bundle.BundleEntryComponent> fhirResources = BundleProcessor.bundle.getEntry();
+            for(Bundle.BundleEntryComponent fhirEntry : fhirResources){
+                Resource fhirResource = fhirEntry.getResource();
+                System.out.println("Processing:" + fhirResource.fhirType());
+                //if(fhirResource.get)
+                if(fhirResource.fhirType().equals("Patient")){
+                    OmopProcessor<Person, PersonService> omopProcessor = new OmopProcessor<>();
+                    patientMapper.setFhirResource((Patient)fhirResource);
+                    Person person = patientMapper.mapFhirToOmop();
+                    if(person != null)
+                        System.out.println(patientMapper.omopResource.toString());
+                 }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        List<Identifier> identifiers = patientMapper.fhirResource.getIdentifier();
-        for(Identifier identifier: identifiers) {
-            if (identifier.getSystem().equals(myIdentifierSystem))
-                identifier.setValue("73452435"); // Unknown value
-        }
-       patientMapper.mapFhirToOmop();
-       System.out.println(patientMapper.omopResource.toString());
     }
 
     @Test
