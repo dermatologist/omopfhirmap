@@ -8,7 +8,7 @@ import lombok.Data;
 public class Person extends BaseModel{
 
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Column(name = "person_id", nullable = false)
   private Integer personId;
   @Column(name = "gender_concept_id", nullable = false)

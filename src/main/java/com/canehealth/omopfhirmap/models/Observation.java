@@ -11,7 +11,7 @@ public class Observation extends BaseModel{
 
  
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Column(name = "observation_id", nullable = false)
   private Integer observationId;
   @Column(name = "person_id", nullable = false)

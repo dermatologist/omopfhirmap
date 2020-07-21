@@ -10,7 +10,7 @@ import lombok.Data;
 public class DrugExposure extends BaseModel{
 
   @Id
-  @GeneratedValue
+  @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Column(name = "drug_exposure_id", nullable = false)
   private Integer drugExposureId;
   @Column(name = "person_id", nullable = false)
