@@ -52,6 +52,8 @@ public class OmopfhirmapApplication implements CommandLineRunner {
                 int cohortId = Integer.parseInt(_source);
                 String fileName = _destination;
                 mainMapper.setCohortId(cohortId);
+                //TODO remove
+                mainMapper.trimList(50);
                 mainMapper.createBundle();
                 HandleJsonFile.write(BundleProcessor.encodeBundleToJsonString(), fileName);
                 System.out.println(BundleProcessor.encodeBundleToJsonString());
