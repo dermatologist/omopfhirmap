@@ -19,8 +19,8 @@ public class Person extends BaseModel{
   private Integer monthOfBirth;
   @Column(name = "day_of_birth", nullable = true)
   private Integer dayOfBirth;
-  @Column(name = "time_of_birth", nullable = true)
-  private String timeOfBirth;
+//  @Column(name = "time_of_birth", nullable = true)
+//  private String timeOfBirth;
   @Column(name = "race_concept_id", nullable = false)
   private Integer raceConceptId;
   @Column(name = "ethnicity_concept_id", nullable = false)
