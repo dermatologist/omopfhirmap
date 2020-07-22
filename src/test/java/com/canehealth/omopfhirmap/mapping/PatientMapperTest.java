@@ -70,7 +70,7 @@ class PatientMapperTest {
     @Test
     void mapOmopToFhirTest() {
         Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
+        List<Person> persons = personService.listByPersonAndPeriod(42, today , today);
         if(!persons.isEmpty()) {
             Person person = persons.get(0);
             patientMapper.setOmopResource(person);
@@ -84,7 +84,7 @@ class PatientMapperTest {
             }
             System.out.print(patientMapper.encodeResourceToJsonString());
         }else{
-            System.out.println("Person 2 is not present");
+            System.out.println("Person 2 is not present. Test with an existing person in db");
             assertTrue(false);
         }
     }
