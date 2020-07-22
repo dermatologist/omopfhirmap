@@ -78,3 +78,6 @@ Check out [csv-fhir-mapper](https://github.com/E-Health/goscar-export)
 * [Bell Eapen](https://nuchange.ca) | [contact](https://nuchange.ca/contact) 
 * PR welcome. Please see CONTRIBUTING.md for details.
 
+## Demo
+
+[![omopfhirmap](https://github.com/E-Health/omopfhirmap/blob/develop/notes/omopfhirmap.gif)](https://github.com/E-Health/omopfhirmap/blob/develop/notes/omopfhirmap.gif)

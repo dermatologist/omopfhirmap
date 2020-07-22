@@ -26,6 +26,7 @@ public class OmopfhirmapApplication implements CommandLineRunner {
     public static void main(String[] args) {
         LOG.info("STARTING THE APPLICATION");
 
+        System.out.println(OmopConstants.ASCIIART);
         System.out.println(OmopConstants.LICENSE);
  
         SpringApplication.run(OmopfhirmapApplication.class, args);
