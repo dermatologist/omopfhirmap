@@ -13,4 +13,31 @@ public class OmopConstants {
     "function = help | tofhirbundle | tofhirserver | toomop\n"+
     "source = cohort id in atlas | bundle json file\n" +
     "destination = bundle json file | fhir server URL\n";
+
+    public static String ASCIIART =  "     \n"  + 
+    "     ______     _    _     _____     _____      \n"  + 
+    "    |  ____|   | |  | |   |_   _|   |  __ \\     \n"  + 
+    "    | |__      | |__| |     | |     | |__) |    \n"  + 
+    "    |  __|     |  __  |     | |     |  _  /     \n"  + 
+    "    | |        | |  | |    _| |_    | | \\ \\     \n"  + 
+    "    |_|        |_|  |_|   |_____|   |_|  \\_\\    \n"  + 
+    "                                                \n"  + 
+    "                                                \n"  + 
+    "       __          __                           \n"  + 
+    "      / /          \\ \\                          \n"  + 
+    "     / /   ______   \\ \\                         \n"  + 
+    "    < <   |______|   > >                        \n"  + 
+    "     \\ \\            / /                         \n"  + 
+    "      \\_\\          /_/                          \n"  + 
+    "                                                \n"  + 
+    "                                                \n"  + 
+    "      ____      __  __      ____      _____     \n"  + 
+    "     / __ \\    |  \\/  |    / __ \\    |  __ \\    \n"  + 
+    "    | |  | |   | \\  / |   | |  | |   | |__) |   \n"  + 
+    "    | |  | |   | |\\/| |   | |  | |   |  ___/    \n"  + 
+    "    | |__| |   | |  | |   | |__| |   | |        \n"  + 
+    "     \\____/    |_|  |_|    \\____/    |_|        \n"  + 
+    "                                                \n"  + 
+    "                                                \n"  + 
+    "    " ; 
 }

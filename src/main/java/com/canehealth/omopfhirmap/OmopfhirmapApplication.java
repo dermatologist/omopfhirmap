@@ -26,6 +26,7 @@ public class OmopfhirmapApplication implements CommandLineRunner {
     public static void main(String[] args) {
         LOG.info("STARTING THE APPLICATION");
 
+        System.out.println(OmopConstants.ASCIIART);
         System.out.println(OmopConstants.LICENSE);
  
         SpringApplication.run(OmopfhirmapApplication.class, args);
@@ -39,46 +40,51 @@ public class OmopfhirmapApplication implements CommandLineRunner {
         String _function = "";
         String _source = "";
         String _destination = "";
-        if(args[0].toLowerCase().equals("help")){
-            System.out.println(OmopConstants.HELPSTRING);            
-        }else{
-            for (int i = 0; i < args.length; ++i) {
-                LOG.debug("args[{}]: {}", i, args[i]);
-                _function = args[0];
-                _source = args[1];
-                _destination = args[2];
+        try {
+            if (args[0].toLowerCase().equals("help")) {
+                System.out.println(OmopConstants.HELPSTRING);
+            } else {
+                for (int i = 0; i < args.length; ++i) {
+                    LOG.debug("args[{}]: {}", i, args[i]);
+                    _function = args[0];
+                    _source = args[1];
+                    _destination = args[2];
+                }
             }
-        }
 
-        if (_function.equals("tofhirbundle")) {
-            try {
-                int cohortId = Integer.parseInt(_source);
-                String fileName = _destination;
+            if (_function.equals("tofhirbundle")) {
+                try {
+                    int cohortId = Integer.parseInt(_source);
+                    String fileName = _destination;
+                    mainMapper.setCohortId(cohortId);
+                    //TODO remove
+                    mainMapper.trimList(50);
+                    mainMapper.createBundle();
+                    HandleJsonFile.write(BundleProcessor.encodeBundleToJsonString(), fileName);
+                    System.out.println(BundleProcessor.encodeBundleToJsonString());
+                } catch (Exception e) {
+                    System.out.println(OmopConstants.HELPSTRING);
+                }
+            } else if (_function.equals("tofhirserver")) {
+                System.out.println("To FHIR SERVER not implemented yet");
+            } else if (_function.equals("toomop")) {
+                int cohortId = Integer.parseInt(_destination);
+                String fileName = _source;
+                String fhirJsonBundle = "To OMOP";
+                try {
+                    fhirJsonBundle = HandleJsonFile.read(fileName);
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 mainMapper.setCohortId(cohortId);
-                //TODO remove
-                mainMapper.trimList(50);
-                mainMapper.createBundle();
-                HandleJsonFile.write(BundleProcessor.encodeBundleToJsonString(), fileName);
-                System.out.println(BundleProcessor.encodeBundleToJsonString());
-            } catch (Exception e) {
+                mainMapper.writeOmop(fhirJsonBundle, cohortId);
+                System.out.println(fhirJsonBundle);
+            } else if (_function.toLowerCase().equals("help")) {
                 System.out.println(OmopConstants.HELPSTRING);
             }
-        } else if (_function.equals("tofhirserver")) {
-            System.out.println("To FHIR SERVER not implemented yet");
-        } else if (_function.equals("toomop")) {
-            int cohortId = Integer.parseInt(_destination);
-            String fileName = _source;
-            String fhirJsonBundle = "To OMOP";
-            try {
-                fhirJsonBundle = HandleJsonFile.read(fileName);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            mainMapper.setCohortId(cohortId);
-            mainMapper.writeOmop(fhirJsonBundle, cohortId);
-            System.out.println(fhirJsonBundle);
-        }else if (_function.toLowerCase().equals("help")) {
+        }
+        catch (Exception e){
             System.out.println(OmopConstants.HELPSTRING);
         }
     }

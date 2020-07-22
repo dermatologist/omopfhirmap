@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class BundleProcessor {
 
     public static Bundle bundle = new Bundle();
-    // Create a FHIR context
-    private static FhirContext ctx = FhirContext.forR4();
+    // Create a FHIR context once and share
+    public static final FhirContext ctx = FhirContext.forR4();
 
     public void add(Resource resource){
         if(BundleProcessor.bundle.getType() == null){

@@ -1,17 +1,13 @@
 package com.canehealth.omopfhirmap.mapping;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import com.canehealth.omopfhirmap.models.BaseModel;
-
-import com.canehealth.omopfhirmap.models.Person;
-import org.hl7.fhir.r4.model.Patient;
+import com.canehealth.omopfhirmap.utils.BundleProcessor;
+import lombok.Data;
 import org.hl7.fhir.r4.model.Resource;
 
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class BaseMapper<M extends BaseModel, F extends Resource>{
@@ -29,22 +25,20 @@ public class BaseMapper<M extends BaseModel, F extends Resource>{
 	private List<F> fhirResources = new ArrayList<>();
 	public M omopResource;
 	public F fhirResource;
-	// Create a FHIR context
-	FhirContext ctx = FhirContext.forR4();
 
 	public String encodeResourceToJsonString(){
 		// Instantiate a new JSON parser
-		IParser parser = ctx.newJsonParser();
+		IParser parser = BundleProcessor.ctx.newJsonParser();
 		return parser.encodeResourceToString(this.fhirResource);
 	}
 
 	public String encodeResourceToXmlString(){
-		return ctx.newXmlParser().encodeResourceToString(this.fhirResource);
+		return BundleProcessor.ctx.newXmlParser().encodeResourceToString(this.fhirResource);
 	}
 
 	public F parseResourceFromJsonString(String fhirResourceAsString){
 		// Parse it
-		IParser parser = ctx.newJsonParser();
+		IParser parser = BundleProcessor.ctx.newJsonParser();
 		return (F) parser.parseResource(fhirResourceAsString);
 	}
 
