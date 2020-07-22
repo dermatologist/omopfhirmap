@@ -12,7 +12,7 @@ Omopfhirmap is a command-line tool for mapping a [OHDSI](https://www.ohdsi.org/)
 ## Build
 
 ```
-mvn clean package
+mvn clean install spring-boot:repackage
 
 ```
 
@@ -23,6 +23,7 @@ mvn clean package
 java -jar <omopfhirmap.jar> <function> <source> <destination> --spring.config.location=<properties file>
 ```
 ### Examples
+* *java -jar target/omopfhirmap-0.0.1.jar help*
 
 * *java -jar target/omopfhirmap-0.0.1.jar tofhirbundle 2 test-fhir.json --spring.config.location=application.properties*
 This will convert the cohort defined in Atlas with an ID of 2 
