@@ -71,7 +71,10 @@ omopfhir.system.name=mySystem
 
 ## Other projects
 
-Check out [csv-fhir-mapper](https://github.com/E-Health/goscar-export)
+* Check out [csv-fhir-mapper](https://github.com/E-Health/goscar-export)
+* [Python package for OMOP CDM](https://github.com/dermatologist/pyomop)
+* [.Net library for OMOP CDM](https://github.com/dermatologist/omopcdm-dot-net)
+* [Go library for OMOP CDM](https://github.com/E-Health/gocdm)
 
 ## Contributors
 
