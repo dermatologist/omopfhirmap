@@ -37,7 +37,7 @@ class PersonServiceTest {
     @Test
     void listByPerson() {
         Date today = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        List<Person> persons = personService.listByPersonAndPeriod(2, today , today);
+        List<Person> persons = personService.listByPersonAndPeriod(42, today , today);
         System.out.println(persons.size());
         assertTrue(persons.size() > 0);
     }
