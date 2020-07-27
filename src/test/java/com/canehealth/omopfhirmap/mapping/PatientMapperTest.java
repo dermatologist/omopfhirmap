@@ -102,8 +102,9 @@ class PatientMapperTest {
                     System.out.println("Processing:" + fhirResource.fhirType());
                     patientMapper.setFhirResource((Patient)fhirResource);
                     Person person = patientMapper.mapFhirToOmop();
-                    assertNull(person); // Exists so null
-                    System.out.println(patientMapper.omopResource.toString());
+                    if(person != null)
+                        assertTrue(person.getYearOfBirth()>0); 
+                    //System.out.println(patientMapper.omopResource.toString());
 
                 }
             }
