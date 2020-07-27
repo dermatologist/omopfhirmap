@@ -38,7 +38,7 @@ class DrugExposureServiceTest {
 
     @Test
     void listByPerson() {
-        List<DrugExposure> drugExposures = drugExposureService.listByPerson(2);
+        List<DrugExposure> drugExposures = drugExposureService.listByPerson(1);
         System.out.println(drugExposures.size());
         assertTrue(drugExposures.size() > 0);
     }
