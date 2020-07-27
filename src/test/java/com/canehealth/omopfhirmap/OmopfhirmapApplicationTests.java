@@ -8,11 +8,18 @@ import java.util.concurrent.ThreadLocalRandom;
 class OmopfhirmapApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void toomopTest() {
 		int randomNum = ThreadLocalRandom.current().nextInt(2, 5 + 1);
 		randomNum = 2;
-		//String[] args = {"tofhirbundle", String.valueOf(randomNum), "test-bundle.json"};
 		String[] args = {"toomop", "test-bundle.json", String.valueOf(randomNum)};
+		OmopfhirmapApplication.main(args);
+	}
+
+	@Test
+	void tofhirbundleTest() {
+		int randomNum = ThreadLocalRandom.current().nextInt(2, 5 + 1);
+		randomNum = 2;
+		String[] args = {"tofhirbundle", String.valueOf(randomNum), "test-bundle.json"};
 		OmopfhirmapApplication.main(args);
 	}
 

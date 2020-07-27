@@ -4,6 +4,8 @@
 
 Omopfhirmap is a command-line tool for mapping a [OHDSI](https://www.ohdsi.org/) cohort, defined in [ATLAS](http://www.ohdsi.org/web/atlas/), to a FHIR bundle that can be optionally submitted to a FHIR server for processing. Conversely, it can process a FHIR bundle and add resources to an existing CDM database ignoring duplicates. Unlike [GT-FHIR2, the OMOP on FHIR Project at Georgia Tech](http://omoponfhir.org/) omopfhirmap does not expose OMOP database as FHIR endpoints. 
 
+### [javadoc](https://e-health.github.io/omopfhirmap/index.html)
+
 ## Use cases
 
 * To export a cohort to a FHIR based analytics tool.
