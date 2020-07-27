@@ -34,3 +34,4 @@ build/
 *.bak
 application-dev.*
 test-bundle.json
+*.zip
