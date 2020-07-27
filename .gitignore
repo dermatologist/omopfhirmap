@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+*.bak
+application-dev.*
+test-bundle.json
+*.zip
