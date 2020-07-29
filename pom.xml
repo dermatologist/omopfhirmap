@@ -18,6 +18,7 @@
 		<java.version>13</java.version>
 		<lombok.version>1.18.12</lombok.version>
 		<hapi.version>4.2.0</hapi.version>
+        <cqframework.version>1.4.9</cqframework.version>
 	</properties>
 
 	<dependencies>
@@ -60,7 +61,53 @@
 			<version>${hapi.version}</version>
 		</dependency>
 
+		<!--
+			Adding dependencies for CQL and 
+			PheMA's cql-on-omop: https://github.com/PheMA/cql-on-omop
+			All transitive dependencies are excluded
+			to prevent SpringBoot from trying to autoconfigure.
+			Bintray repository added below.
 
+			Plan is to remove the dependency on WEBAPI for cql to omop
+			Test in OmopfhirmapApplicationTest
+		-->	
+		<dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>model</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>elm</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql-to-elm</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>quick</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>edu.phema</groupId>
+			<artifactId>phema-elm-to-ohdsi</artifactId>
+			<version>0.1.1</version>
+			<exclusions>
+				<exclusion>
+				  <groupId>*</groupId>
+				  <artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- ******************************************************* -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -126,5 +173,12 @@
                 <activatedProperties>prod</activatedProperties>
             </properties>
         </profile>
-    </profiles>
+	</profiles>
+	<repositories>
+		<repository>
+			 <id>phema-bintray</id>
+			 <name>phema-bintray</name>
+			 <url>https://dl.bintray.com/phema/maven</url>
+		 </repository>
+	 </repositories>
 </project>
