@@ -4,7 +4,6 @@ import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.services.PersonService;
 import com.canehealth.omopfhirmap.utils.BundleProcessor;
 import com.canehealth.omopfhirmap.utils.HandleJsonFile;
-import com.canehealth.omopfhirmap.utils.OmopProcessor;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.Patient;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
