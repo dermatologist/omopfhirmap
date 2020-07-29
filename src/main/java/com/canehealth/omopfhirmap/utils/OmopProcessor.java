@@ -8,7 +8,7 @@ import com.canehealth.omopfhirmap.services.CohortService;
 import java.sql.Date;
 import java.util.Calendar;
 
-public class OmopProcessor<O extends BaseModel, S extends BaseService> {
+public class OmopProcessor<O extends BaseModel, S extends BaseService<?, O>> {
 
     public void add(O omopResource, S service, CohortService cohortService, int cohortId){
         if(omopResource.getClass().getSimpleName().equals("Person")){
