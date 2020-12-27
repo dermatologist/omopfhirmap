@@ -1,5 +1,9 @@
 # omopfhirmap for mapping FHIR <--> OHDSI OMOP CDM
 
+![omopfhirmap](https://forthebadge.com/images/badges/made-with-java.svg)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/E-Health/omopfhirmap)
+
+
 ## About
 
 Omopfhirmap is a command-line tool for mapping a [OHDSI](https://www.ohdsi.org/) cohort, defined in [ATLAS](http://www.ohdsi.org/web/atlas/), to a FHIR bundle that can be optionally submitted to a FHIR server for processing. Conversely, it can process a FHIR bundle and add resources to an existing CDM database ignoring duplicates. Unlike [GT-FHIR2, the OMOP on FHIR Project at Georgia Tech](http://omoponfhir.org/) omopfhirmap does not expose OMOP database as FHIR endpoints. 
@@ -80,7 +84,7 @@ omopfhir.system.name=mySystem
 
 ## Contributors
 
-* [Bell Eapen](https://nuchange.ca) | [contact](https://nuchange.ca/contact) 
+* [Bell Eapen](https://nuchange.ca) | [contact](https://nuchange.ca/contact) | [![Twitter Follow](https://img.shields.io/twitter/follow/beapen?style=social)](https://twitter.com/beapen)
 * PR welcome. Please see CONTRIBUTING.md for details.
 
 ## Demo
