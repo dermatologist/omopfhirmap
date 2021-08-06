@@ -1,0 +1,28 @@
+name: Maven Version Bump
+
+on:
+  push:
+    branches:
+      - "release/**"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Checkout Latest Commit
+      uses: actions/checkout@v2
+
+    - name: Generate changelog
+      uses: charmixer/auto-changelog-action@v1
+      with:
+        token: ${{ secrets.github_token }}
+
+    - name: Bump Version main
+      id: bump-main
+      uses: E-Health/maven-version-bump-action@v4.3
+      with:
+        github-token: ${{ secrets.github_token }}
+        version-prefix: v
