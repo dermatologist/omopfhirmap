@@ -4,7 +4,6 @@ import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.services.PersonService;
 import com.canehealth.omopfhirmap.utils.BundleProcessor;
 import com.canehealth.omopfhirmap.utils.HandleJsonFile;
-import com.canehealth.omopfhirmap.utils.OmopProcessor;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Identifier;
 import org.hl7.fhir.r4.model.Patient;
@@ -21,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -84,7 +82,7 @@ class PatientMapperTest {
             }
             System.out.print(patientMapper.encodeResourceToJsonString());
         }else{
-            System.out.println("Person 2 is not present. Test with an existing person in db");
+            System.out.println("Person 42 is not present. Test with an existing person in db");
             assertTrue(false);
         }
     }
@@ -102,8 +100,9 @@ class PatientMapperTest {
                     System.out.println("Processing:" + fhirResource.fhirType());
                     patientMapper.setFhirResource((Patient)fhirResource);
                     Person person = patientMapper.mapFhirToOmop();
-                    assertNotNull(person);
-                    System.out.println(patientMapper.omopResource.toString());
+                    if(person != null)
+                        assertTrue(person.getYearOfBirth()>0); 
+                    //System.out.println(patientMapper.omopResource.toString());
 
                 }
             }

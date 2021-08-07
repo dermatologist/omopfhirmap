@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # open-pull-requests-limit: 10
+    # ignore:
+    # - dependency-name: org.mock-server:mockserver-client-java
+    #   versions:
+    #   - 5.11.x
+    # - dependency-name: org.mock-server:mockserver-netty
+    #   versions:
+    #   - 5.11.x
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

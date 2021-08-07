@@ -1,6 +1,5 @@
 package com.canehealth.omopfhirmap.services;
 
-import com.canehealth.omopfhirmap.models.Person;
 import com.canehealth.omopfhirmap.repositories.DrugExposureRepository;
 import com.canehealth.omopfhirmap.models.DrugExposure;
 

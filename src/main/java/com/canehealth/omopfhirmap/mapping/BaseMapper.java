@@ -36,6 +36,7 @@ public class BaseMapper<M extends BaseModel, F extends Resource>{
 		return BundleProcessor.ctx.newXmlParser().encodeResourceToString(this.fhirResource);
 	}
 
+	@SuppressWarnings("unchecked")
 	public F parseResourceFromJsonString(String fhirResourceAsString){
 		// Parse it
 		IParser parser = BundleProcessor.ctx.newJsonParser();

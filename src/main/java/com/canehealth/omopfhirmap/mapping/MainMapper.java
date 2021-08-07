@@ -22,9 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.parser.IParser;
-
 @Component
 @Data
 public class MainMapper {
