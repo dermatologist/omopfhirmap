@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.canehealth</groupId>
 	<artifactId>omopfhirmap</artifactId>
-	<version>0.0.1</version>
+	<version>0.1.0</version>
 	<name>omopfhirmap</name>
 	<description>OMOP - FHIR mapper for Spring Boot</description>
 	<parent>
