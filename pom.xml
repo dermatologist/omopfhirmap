@@ -18,7 +18,7 @@
 	<properties>
 		<java.version>13</java.version>
 		<lombok.version>1.18.22</lombok.version>
-		<hapi.version>4.2.0</hapi.version>
+		<hapi.version>5.6.1</hapi.version>
 	</properties>
 
 	<dependencies>
