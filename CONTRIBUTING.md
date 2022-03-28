@@ -13,7 +13,7 @@
 
         git clone https://github.com/YourGithubUsername/omopfhirmap.git
         cd omopfhirmap
-        git remote add upstream https://github.com/E-Health/omopfhirmap.git
+        git remote add upstream https://github.com/dermatologist/omopfhirmap.git
 
 2. Checkout out a new local branch based on your master and update it to the latest (BRANCH-123 is the branch name, You can name it whatever you want. Try to give it a meaningful name. If you are fixing an issue, please include the issue #).
 
